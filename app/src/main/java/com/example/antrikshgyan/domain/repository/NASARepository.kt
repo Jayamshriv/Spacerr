@@ -1,4 +1,4 @@
-package com.example.antrikshgyan.domain.repository.NASARepository
+package com.example.antrikshgyan.domain.repository
 
 import com.example.antrikshgyan.data.remote.dto.APODDto
 

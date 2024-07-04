@@ -1,4 +1,8 @@
 package com.example.antrikshgyan.di.application
 
-class AntrikshGyanApplication {
-}
+import android.app.Application
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
+
+@HiltAndroidApp
+class AntrikshGyanApplication : Application()

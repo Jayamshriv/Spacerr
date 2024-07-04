@@ -1,4 +1,8 @@
 package com.example.antrikshgyan.presentation.navgraph
 
-enum class Routes {
+sealed class Routes(
+    val routes: String
+) {
+    object HomeScreen : Routes("HomeScreen")
+    object APODScreen : Routes("APODScreen")
 }
