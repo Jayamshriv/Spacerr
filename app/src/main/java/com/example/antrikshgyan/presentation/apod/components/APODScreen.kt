@@ -79,12 +79,14 @@ fun APODScreen(
 //        }
 
     Scaffold(
+        containerColor = Color.Transparent,
         modifier = Modifier
             .fillMaxSize(),
         topBar =
         {
             TopAppCustomBar(
-                heading = "Astronomy POD"
+                heading = "Astronomy POD",
+                containerColor = Color.Transparent
             ){
                 navController.navigate(Routes.HomeScreen.toString())
             }
@@ -97,7 +99,6 @@ fun APODScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 12.dp, vertical = 4.dp)
                 .padding(innerPadding)
-
         ) {
             Log.e(TAG, apod.toString())
             Text(

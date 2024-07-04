@@ -35,7 +35,6 @@ class MainActivity : ComponentActivity() {
                     .background(brush = gradientBackground())) {
                    NavGraph()
                 }
-
             }
         }
     }

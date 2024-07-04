@@ -28,12 +28,13 @@ import com.example.antrikshgyan.ui.theme.fonts
 fun TopAppCustomBar(
     heading: String,
     modifier: Modifier = Modifier,
-    onBackClick : ()-> Unit
+    containerColor: Color = Color(0xFF1F1F1F),
+    onBackClick : ()-> Unit,
 ) {
 
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(0xFF1F1F1F),
+            containerColor = containerColor,
             titleContentColor = Color.White
         ),
         title = {
