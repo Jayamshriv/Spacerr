@@ -1,4 +1,4 @@
-package com.example.antrikshgyan.data.remote.dto
+package com.example.antrikshgyan.data.remote.dto.nasa
 
 import com.example.antrikshgyan.domain.model.APODModel
 
@@ -9,12 +9,13 @@ data class APODDto(
     val service_version: String?,
     val title: String?,
     val hdurl : String?,
-    val url: String?
+    val url: String?,
+    val copyright : String?
 )
 
 fun APODDto.toAPODModel() : APODModel{
     return APODModel(
-        explanation,media_type,title,url, hdurl
+        explanation,media_type,title,url, hdurl, copyright
     )
 }
 

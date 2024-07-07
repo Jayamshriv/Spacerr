@@ -48,9 +48,7 @@ import com.example.antrikshgyan.ui.theme.fonts
 
 @Composable
 fun HomeScreen(
-    navController: NavController,
-    imageUrl: String = "https://api.nasa.gov/EPIC/archive/natural/2020/09/30/png/epic_1b_20200930001751.png?api_key=noMFHR9VTfElRHpLoPVcHaJNZsFU9hvtiIQyDS8m",
-    title : String = "This image was taken by NASA's adjkadjasbd kaskasdbkasbkjd kja dkas kjabdka oihaoid aob EPIC camera onboard the NOAA DSCOVR spacecraft"
+    navController: NavController
 ) {
    Column(
        modifier = Modifier
@@ -58,7 +56,10 @@ fun HomeScreen(
            .verticalScroll(rememberScrollState())
    ){
        HeadingHomeScreen()
-       APODHomeScreen(navController)
+       APODHomeScreen(navController = navController)
+       ExploreHomeScreen(navController = navController)
+       ISROZoneHomeScreen(navController= navController)
+       NASAZoneHomeScreen(navController= navController)
 
    }
 }

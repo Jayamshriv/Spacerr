@@ -13,14 +13,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import com.example.antrikshgyan.presentation.navgraph.Routes
 import com.example.antrikshgyan.ui.theme.fonts
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,12 +27,16 @@ import com.example.antrikshgyan.ui.theme.fonts
 fun TopAppCustomBar(
     heading: String,
     modifier: Modifier = Modifier,
-    onBackClick : ()-> Unit
+    scrollBehavior: TopAppBarScrollBehavior,
+    onBackClick: () -> Unit,
 ) {
 
     TopAppBar(
+
+        scrollBehavior = scrollBehavior,
+
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(0xFF1F1F1F),
+            containerColor = Color.Transparent,
             titleContentColor = Color.White
         ),
         title = {

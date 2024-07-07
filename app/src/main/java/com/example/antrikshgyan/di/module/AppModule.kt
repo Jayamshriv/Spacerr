@@ -1,11 +1,15 @@
 package com.example.antrikshgyan.di.module
 
 import android.util.Log
-import com.example.antrikshgyan.constants.Constants
+import com.example.antrikshgyan.common.Constants
 import com.example.antrikshgyan.data.remote.apiservice.APIService
-import com.example.antrikshgyan.data.repository.NASARepositoryImpl
+import com.example.antrikshgyan.data.remote.apiservice.IsroServiceApiService
+import com.example.antrikshgyan.data.repository.isro.ISROServiceRepositoryImpl
+import com.example.antrikshgyan.data.repository.nasa.NASARepositoryImpl
+import com.example.antrikshgyan.domain.repository.ISROServiceRepository
 import com.example.antrikshgyan.domain.repository.NASARepository
-import com.example.antrikshgyan.domain.usecase.apod.APODUseCase
+import com.example.antrikshgyan.domain.usecase.isro.ISROServiceUseCase
+import com.example.antrikshgyan.domain.usecase.nasa.APODUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,6 +22,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    //--------------------------------------------APOD ------------------------------------------------------//
     @Provides
     @Singleton
     fun providesNASAapi(): APIService {
@@ -35,14 +40,43 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesNASARepository(apiService: APIService): NASARepository{
+    fun providesNASARepository(apiService: APIService): NASARepository {
         return NASARepositoryImpl(apiService)
     }
 
     @Provides
     @Singleton
-    fun providesAPODUseCase(repository :NASARepository) :APODUseCase{
+    fun providesAPODUseCase(repository: NASARepository): APODUseCase {
         return APODUseCase(repository)
+    }
+
+
+    //--------------------------------------------ISRO Services ------------------------------------------------------//
+    @Provides
+    @Singleton
+    fun providesISROServicesAPI(): IsroServiceApiService {
+        return try{
+            Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL_ISRO_SERVICES)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(IsroServiceApiService::class.java)
+        }catch (e : Exception){
+            throw IllegalStateException("Failed to get Isro services ")
+        }
+
+    }
+
+    @Provides
+    @Singleton
+    fun providesISROServiceRepository(isroServiceApiService: IsroServiceApiService): ISROServiceRepository{
+        return ISROServiceRepositoryImpl(isroServiceApiService)
+    }
+
+    @Provides
+    @Singleton
+    fun providesISROUseCase(isroServiceRepository: ISROServiceRepository) : ISROServiceUseCase{
+        return ISROServiceUseCase(isroServiceRepository)
     }
 
 

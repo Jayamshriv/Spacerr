@@ -10,5 +10,6 @@ data class APODModel(
     val media_type: String?="",
     val title: String?="",
     val url: String?="",
-    val hdurl : String? =""
+    val hdurl : String? ="",
+    val copyright: String?=""
 ) : Parcelable
