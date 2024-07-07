@@ -1,5 +1,6 @@
 package com.example.antrikshgyan.data.remote.apiservice
 
+import com.example.antrikshgyan.data.remote.dto.isro.ISROLaunchesDto
 import com.example.antrikshgyan.data.remote.dto.isro.ISROSpacecraftDto
 import retrofit2.Call
 import retrofit2.Response
@@ -9,4 +10,7 @@ interface IsroServiceApiService {
 
     @GET("/api/spacecraft")
     suspend fun getSpacecraft() : Response<List<ISROSpacecraftDto>>
+
+    @GET("/api/launches")
+    suspend fun getLaunches() : Response<List<ISROLaunchesDto>>
 }
