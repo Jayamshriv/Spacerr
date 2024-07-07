@@ -1,5 +1,8 @@
 package com.example.antrikshgyan.presentation.isro_zone.components
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,6 +18,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
@@ -22,6 +27,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -42,10 +48,16 @@ import kotlin.math.max
 @Preview
 @Composable
 fun ISROSpacecraft(
+    modifier: Modifier = Modifier,
     spacecraft : ISROSpaceCraftModel = ISROSpaceCraftModel()
 ) {
 
-    
+    val animatable = remember {
+        Animatable(0.75f)
+    }
+    LaunchedEffect(key1 = true) {
+        animatable.animateTo(1f, tween(300, easing = FastOutLinearInEasing))
+    }
     val successSweepGradientColor = listOf(
         Color(0xFF08922F),
         Color(0xFF2CE95B),
@@ -73,9 +85,13 @@ fun ISROSpacecraft(
                 colors = if (status) successSweepGradientColor else failureSweepGradientColor,
             )
         ),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(8.dp)
+            .graphicsLayer{
+                this.scaleX = animatable.value
+                this.scaleY = animatable.value
+        }
             .clickable {
 
             }

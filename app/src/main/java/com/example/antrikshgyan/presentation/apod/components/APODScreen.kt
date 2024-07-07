@@ -66,7 +66,9 @@ fun APODScreen(
     var revealContent by remember { mutableStateOf(false) }
 
 
-    Box {
+    Box (
+        Modifier.fillMaxSize()
+    ){
         Image(
             painter = painterResource(id = R.drawable.astars_bg),
             contentDescription = "bg",
@@ -172,7 +174,8 @@ fun APODScreen(
                     )
 
 
-                } else {
+                }
+                else {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
