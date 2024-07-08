@@ -4,11 +4,15 @@ import android.util.Log
 import com.example.antrikshgyan.common.Constants
 import com.example.antrikshgyan.data.remote.apiservice.APIService
 import com.example.antrikshgyan.data.remote.apiservice.IsroServiceApiService
+import com.example.antrikshgyan.data.remote.apiservice.IsroVercelApiService
 import com.example.antrikshgyan.data.repository.isro.ISROServiceRepositoryImpl
+import com.example.antrikshgyan.data.repository.isro.ISROVercelRepositoryImpl
 import com.example.antrikshgyan.data.repository.nasa.NASARepositoryImpl
 import com.example.antrikshgyan.domain.repository.ISROServiceRepository
+import com.example.antrikshgyan.domain.repository.ISROVercelRepository
 import com.example.antrikshgyan.domain.repository.NASARepository
 import com.example.antrikshgyan.domain.usecase.isro.ISROServiceUseCase
+import com.example.antrikshgyan.domain.usecase.isro.ISROVercelUseCase
 import com.example.antrikshgyan.domain.usecase.nasa.APODUseCase
 import dagger.Module
 import dagger.Provides
@@ -50,8 +54,8 @@ object AppModule {
         return APODUseCase(repository)
     }
 
-
     //--------------------------------------------ISRO Services ------------------------------------------------------//
+
     @Provides
     @Singleton
     fun providesISROServicesAPI(): IsroServiceApiService {
@@ -78,6 +82,32 @@ object AppModule {
     fun providesISROUseCase(isroServiceRepository: ISROServiceRepository) : ISROServiceUseCase{
         return ISROServiceUseCase(isroServiceRepository)
     }
+
+    //--------------------------------------------ISRO Vercel API ------------------------------------------------------//
+
+    @Provides
+    @Singleton
+    fun providesISROVercelAPi() : IsroVercelApiService{
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL_ISRO_VERCEL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(IsroVercelApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providesISROVercelRepository(apiService: IsroVercelApiService) : ISROVercelRepository{
+        return ISROVercelRepositoryImpl(apiService)
+    }
+
+    @Provides
+    @Singleton
+    fun providesISROVercelUseCase(repository: ISROVercelRepository) : ISROVercelUseCase{
+        return ISROVercelUseCase(repository)
+    }
+
+
 
 
 }

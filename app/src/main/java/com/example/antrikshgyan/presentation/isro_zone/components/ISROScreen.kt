@@ -1,6 +1,7 @@
 package com.example.antrikshgyan.presentation.isro_zone.components
 
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -33,6 +34,7 @@ import com.example.antrikshgyan.R
 import com.example.antrikshgyan.domain.model.ISROSpaceCraftModel
 import com.example.antrikshgyan.presentation.common.TopAppCustomBar
 import com.example.antrikshgyan.presentation.isro_zone.viewmodel.ISROServiceViewModel
+import com.example.antrikshgyan.presentation.isro_zone.viewmodel.ISROVercelViewModel
 import com.example.antrikshgyan.presentation.navgraph.Routes
 import com.example.antrikshgyan.ui.theme.Blue
 import kotlinx.coroutines.delay
@@ -45,9 +47,15 @@ fun ISROScreen(
     navController: NavController,
 
     ) {
+
     val isroServiceViewModel: ISROServiceViewModel = hiltViewModel()
+    val isroVercelViewModel: ISROVercelViewModel = hiltViewModel()
+
     val spacecraftState = isroServiceViewModel.spacecraftResponse.value.spacecraft
     val launchState = isroServiceViewModel.launchState.value.launch
+    val customerSatelliteState = isroVercelViewModel.customerSatelliteState.value.customerSatellite
+    val centreState = isroVercelViewModel.centreState.value.centres
+
     var revealContent by remember { mutableStateOf(false) }
 
     Box {
@@ -72,16 +80,15 @@ fun ISROScreen(
                     heading = heading,
                     scrollBehavior = scrollBehaviour
                 ) {
-//                    navController.popBackStack(Routes.HomeScreen.routes, false)
-//                    navController.navigate(Routes.HomeScreen.routes)
-                    navController.navigate(Routes.HomeScreen.routes) { popUpTo(Routes.HomeScreen.routes) }
+                    navController.popBackStack()
+                    navController.navigate(Routes.HomeScreen.routes)
                 }
             }
         ) { innerPadding ->
             Log.e("innerPadding", innerPadding.toString())
 
             LaunchedEffect(key1 = true) {
-                delay(1000)
+                delay(1500)
                 revealContent = true
             }
             if (revealContent) {
@@ -118,8 +125,8 @@ fun ISROScreen(
                                 .padding(innerPadding)
                                 .background(color = Color.Transparent)
                         ) {
-                            items(items = spacecraftState) { item ->
-                                ISROSpacecraft(spacecraft = item)
+                            items(items = customerSatelliteState) { item ->
+                                ISROCusSatellites(customerSatellite = item)
                             }
                         }
 
@@ -131,8 +138,8 @@ fun ISROScreen(
                                 .padding(innerPadding)
                                 .background(color = Color.Transparent)
                         ) {
-                            items(items = spacecraftState) { item ->
-                                ISROSpacecraft(spacecraft = item)
+                            items(items = centreState) { item ->
+                                ISROCentres(centre = item)
                             }
                         }
 

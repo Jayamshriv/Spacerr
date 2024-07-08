@@ -10,11 +10,12 @@ data class CustomerSatellite(
     val mass: String
 )
 
-fun CustomerSatellite.toCustomerSatelliteModel() : CustomerSatelliteModel{
+fun CustomerSatellite.toCustomerSatelliteModel(): CustomerSatelliteModel {
     return CustomerSatelliteModel(
         country,
-    launch_date,
-    launcher,
-    mass,
+        launch_date,
+        launcher,
+        mass,
+        id
     )
 }
