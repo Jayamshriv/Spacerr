@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -52,6 +53,7 @@ fun ISROSpacecraft(
     spacecraft : ISROSpaceCraftModel = ISROSpaceCraftModel()
 ) {
 
+    val localUriHandler = LocalUriHandler.current
     val animatable = remember {
         Animatable(0.75f)
     }
@@ -91,11 +93,7 @@ fun ISROSpacecraft(
             .graphicsLayer{
                 this.scaleX = animatable.value
                 this.scaleY = animatable.value
-        }
-            .clickable {
-
-            }
-            .shadow(
+            }.shadow(
                 elevation = 0.dp,
                 shape = RoundedCornerShape(8.dp),
                 ambientColor = if (status) SuccessGreen else FailureRed,
@@ -104,8 +102,9 @@ fun ISROSpacecraft(
             .background(shape = RoundedCornerShape(8.dp),
                 color =
                 Color(0x74424242)
-            )
-
+            ).clickable {
+                localUriHandler.openUri(spacecraft.link)
+            }
     ) {
 
 

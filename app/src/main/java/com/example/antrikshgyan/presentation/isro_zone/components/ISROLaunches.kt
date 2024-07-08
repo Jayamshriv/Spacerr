@@ -20,11 +20,13 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import com.example.antrikshgyan.domain.model.ISROLaunchesModel
 import com.example.antrikshgyan.presentation.common.InfoFoot
 import com.example.antrikshgyan.presentation.common.InfoHeading
 import com.example.antrikshgyan.presentation.common.InfoItem
+import com.example.antrikshgyan.presentation.common.OpenUrl
 import com.example.antrikshgyan.ui.theme.FailureRed
 import com.example.antrikshgyan.ui.theme.SuccessGreen
 
@@ -33,6 +35,7 @@ fun ISROLaunches(
     modifier: Modifier = Modifier,
     launch : ISROLaunchesModel
 ) {
+    val localUriHandler = LocalUriHandler.current
     val animatable = remember {
         Animatable(0.75f)
     }
@@ -69,12 +72,9 @@ fun ISROLaunches(
         modifier = modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .graphicsLayer{
+            .graphicsLayer {
                 this.scaleX = animatable.value
                 this.scaleY = animatable.value
-            }
-            .clickable {
-
             }
             .shadow(
                 elevation = 0.dp,
@@ -82,10 +82,14 @@ fun ISROLaunches(
                 ambientColor = if (status) SuccessGreen else FailureRed,
                 spotColor = if (status) SuccessGreen else FailureRed,
             )
-            .background(shape = RoundedCornerShape(8.dp),
+            .background(
+                shape = RoundedCornerShape(8.dp),
                 color =
                 Color(0x74424242)
-            )
+            ).clickable {
+                localUriHandler.openUri(launch.Link)
+//                OpenUrl(url = launch.Link)
+            }
 
     ) {
 
