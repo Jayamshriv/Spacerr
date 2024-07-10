@@ -1,4 +1,4 @@
-package com.example.antrikshgyan.domain.model
+package com.example.antrikshgyan.domain.model.isro
 
 data class ISROLaunchesModel(
     val LaunchDate: String = "",

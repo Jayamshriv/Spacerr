@@ -1,15 +1,14 @@
-package com.example.antrikshgyan.presentation.apod.viewmodel
+package com.example.antrikshgyan.presentation.nasa.viewmodel
 
 import android.util.Log
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.antrikshgyan.common.Resource
-import com.example.antrikshgyan.domain.model.APODModel
+import com.example.antrikshgyan.domain.model.nasa.APODModel
 import com.example.antrikshgyan.domain.usecase.nasa.APODUseCase
-import com.example.antrikshgyan.presentation.apod.APODDataState
+import com.example.antrikshgyan.presentation.nasa.state.APODDataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -1,7 +1,6 @@
 package com.example.antrikshgyan.presentation.isro_zone.components
 
 import android.util.Log
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -31,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.antrikshgyan.R
-import com.example.antrikshgyan.domain.model.ISROSpaceCraftModel
 import com.example.antrikshgyan.presentation.common.TopAppCustomBar
 import com.example.antrikshgyan.presentation.isro_zone.viewmodel.ISROServiceViewModel
 import com.example.antrikshgyan.presentation.isro_zone.viewmodel.ISROVercelViewModel

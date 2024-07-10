@@ -1,6 +1,6 @@
 package com.example.antrikshgyan.data.remote.dto.isro
 
-import com.example.antrikshgyan.domain.model.CentreModel
+import com.example.antrikshgyan.domain.model.isro.CentreModel
 
 data class Centre(
     val Place: String,

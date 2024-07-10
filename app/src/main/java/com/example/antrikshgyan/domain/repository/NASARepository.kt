@@ -1,9 +1,15 @@
 package com.example.antrikshgyan.domain.repository
 
 import com.example.antrikshgyan.data.remote.dto.nasa.APODDto
+import com.example.antrikshgyan.data.remote.dto.nasa.mars.MarsRoverDto
 
 interface NASARepository {
 
-    suspend fun getAPODData() : APODDto
+    suspend fun getAPODData(): APODDto
+
+    suspend fun getMarsRoversImages(
+        sol: Int,
+        page: Int
+    ): MarsRoverDto
 
 }

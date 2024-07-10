@@ -19,7 +19,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import com.example.antrikshgyan.domain.model.CentreModel
+import com.example.antrikshgyan.domain.model.isro.CentreModel
 import com.example.antrikshgyan.presentation.common.InfoHeading
 import com.example.antrikshgyan.presentation.common.InfoItem
 import kotlin.random.Random

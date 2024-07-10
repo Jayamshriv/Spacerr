@@ -6,4 +6,5 @@ sealed class Routes(
     data object HomeScreen : Routes("HomeScreen")
     data object APODScreen : Routes("APODScreen")
     data object ISROScreen : Routes("ISROScreen")
+    data object MarsRoverScreen : Routes("MarsRoverScreen")
 }

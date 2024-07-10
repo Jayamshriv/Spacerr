@@ -3,18 +3,14 @@ package com.example.antrikshgyan.presentation.navgraph
 import android.os.Bundle
 import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.example.antrikshgyan.domain.model.APODModel
-import com.example.antrikshgyan.presentation.apod.components.APODScreen
-import com.example.antrikshgyan.presentation.apod.viewmodel.APODViewModel
+import com.example.antrikshgyan.domain.model.nasa.APODModel
+import com.example.antrikshgyan.presentation.nasa.components.APODScreen
 import com.example.antrikshgyan.presentation.home_screen.components.HomeScreen
 import com.example.antrikshgyan.presentation.isro_zone.components.ISROScreen
-import com.example.antrikshgyan.presentation.isro_zone.viewmodel.ISROServiceViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.example.antrikshgyan.presentation.mars.components.MarsRoverScreen
 
 @Composable
 fun NavGraph() {
@@ -49,6 +45,11 @@ fun NavGraph() {
                 heading = heading,
                 index = index,
                 navController = navController)
+        }
+        composable(
+            route = Routes.MarsRoverScreen.routes
+        ) {
+            MarsRoverScreen()
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.example.antrikshgyan.presentation.isro_zone.state
 
-import com.example.antrikshgyan.domain.model.CentreModel
+import com.example.antrikshgyan.domain.model.isro.CentreModel
 
 data class ISROCentresDataState (
     val isLoading : Boolean = false,

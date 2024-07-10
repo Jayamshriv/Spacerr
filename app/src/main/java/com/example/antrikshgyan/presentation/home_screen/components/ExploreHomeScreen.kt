@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.antrikshgyan.R
+import com.example.antrikshgyan.presentation.navgraph.Routes
 import com.example.antrikshgyan.ui.theme.fonts
 
 @Composable
@@ -47,22 +48,19 @@ fun ExploreHomeScreen(
                 .horizontalScroll(rememberScrollState())
                 .fillMaxWidth()
         ) {
-            CardHomeScreen(heading = "Random Shit", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp)){
+            CardHomeScreen(heading = "Daily Shit", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
 
             }
-            CardHomeScreen(heading = "Locate ISS", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp)){
+            CardHomeScreen(heading = "Locate ISS", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
 
             }
-            CardHomeScreen(heading = "Solar System", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp)){
+            CardHomeScreen(heading = "MARS Rover Images", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
+                navController.navigate(Routes.MarsRoverScreen.routes)
+            }
+            CardHomeScreen(heading = "Insight 3D", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
 
             }
-            CardHomeScreen(heading = "Insight 3D", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp)){
-
-            }
-            CardHomeScreen(heading = "Upcoming Launches", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp)){
-
-            }
-            CardHomeScreen(heading = "Nearest Object", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp)){
+            CardHomeScreen(heading = "Upcoming Launches", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
 
             }
 

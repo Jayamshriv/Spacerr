@@ -1,8 +1,7 @@
-package com.example.antrikshgyan.domain.model
+package com.example.antrikshgyan.domain.model.nasa
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import kotlinx.serialization.Contextual
 
 @Parcelize
 data class APODModel(

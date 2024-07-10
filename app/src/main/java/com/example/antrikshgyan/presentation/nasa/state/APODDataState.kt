@@ -1,6 +1,6 @@
-package com.example.antrikshgyan.presentation.apod
+package com.example.antrikshgyan.presentation.nasa.state
 
-import com.example.antrikshgyan.domain.model.APODModel
+import com.example.antrikshgyan.domain.model.nasa.APODModel
 
 data class APODDataState (
     val isLoading: Boolean = false,

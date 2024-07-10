@@ -5,7 +5,6 @@ import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,20 +18,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
-import com.example.antrikshgyan.data.remote.dto.isro.CustomerSatellite
-import com.example.antrikshgyan.data.remote.dto.isro.ISROCusSatellitesDto
-import com.example.antrikshgyan.domain.model.CustomerSatelliteModel
-import com.example.antrikshgyan.domain.model.ISROLaunchesModel
-import com.example.antrikshgyan.presentation.common.InfoFoot
+import com.example.antrikshgyan.domain.model.isro.CustomerSatelliteModel
 import com.example.antrikshgyan.presentation.common.InfoHeading
 import com.example.antrikshgyan.presentation.common.InfoItem
-import com.example.antrikshgyan.ui.theme.FailureRed
-import com.example.antrikshgyan.ui.theme.SuccessGreen
 import kotlin.random.Random
 
 @Composable

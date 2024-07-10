@@ -1,7 +1,6 @@
 package com.example.antrikshgyan.presentation.isro_zone.state
 
-import com.example.antrikshgyan.common.Resource
-import com.example.antrikshgyan.domain.model.ISROSpaceCraftModel
+import com.example.antrikshgyan.domain.model.isro.ISROSpaceCraftModel
 
 data class ISROSpacecraftDataState (
     val isLoading : Boolean = false,

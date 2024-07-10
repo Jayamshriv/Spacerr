@@ -32,7 +32,7 @@ fun NASAZoneHomeScreen(
     ) {
 
         Text(
-            text = "ISRO Zone",
+            text = "NASA Zone",
             fontFamily = fonts,
             color = Color.White,
             fontSize = 18.sp,

@@ -14,6 +14,7 @@ import com.example.antrikshgyan.domain.repository.NASARepository
 import com.example.antrikshgyan.domain.usecase.isro.ISROServiceUseCase
 import com.example.antrikshgyan.domain.usecase.isro.ISROVercelUseCase
 import com.example.antrikshgyan.domain.usecase.nasa.APODUseCase
+import com.example.antrikshgyan.domain.usecase.nasa.MarsRoverImageUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -107,6 +108,13 @@ object AppModule {
         return ISROVercelUseCase(repository)
     }
 
+    //------------------------------Mars UseCase------------------
+
+    @Provides
+    @Singleton
+    fun providesMarsRoverImageUseCase(repository: NASARepository) : MarsRoverImageUseCase{
+        return MarsRoverImageUseCase(repository)
+    }
 
 
 

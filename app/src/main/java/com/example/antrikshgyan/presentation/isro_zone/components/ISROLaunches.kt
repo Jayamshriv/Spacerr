@@ -22,11 +22,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
-import com.example.antrikshgyan.domain.model.ISROLaunchesModel
+import com.example.antrikshgyan.domain.model.isro.ISROLaunchesModel
 import com.example.antrikshgyan.presentation.common.InfoFoot
 import com.example.antrikshgyan.presentation.common.InfoHeading
 import com.example.antrikshgyan.presentation.common.InfoItem
-import com.example.antrikshgyan.presentation.common.OpenUrl
 import com.example.antrikshgyan.ui.theme.FailureRed
 import com.example.antrikshgyan.ui.theme.SuccessGreen
 

@@ -1,6 +1,6 @@
 package com.example.antrikshgyan.data.remote.dto.isro
 
-import com.example.antrikshgyan.domain.model.ISROSpaceCraftModel
+import com.example.antrikshgyan.domain.model.isro.ISROSpaceCraftModel
 
 data class ISROSpacecraftDto(
     val _id: String,

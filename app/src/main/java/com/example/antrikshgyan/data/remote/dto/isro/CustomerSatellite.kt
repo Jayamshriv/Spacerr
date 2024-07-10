@@ -1,6 +1,6 @@
 package com.example.antrikshgyan.data.remote.dto.isro
 
-import com.example.antrikshgyan.domain.model.CustomerSatelliteModel
+import com.example.antrikshgyan.domain.model.isro.CustomerSatelliteModel
 
 data class CustomerSatellite(
     val country: String,

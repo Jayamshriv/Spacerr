@@ -28,6 +28,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.antrikshgyan.R
@@ -40,6 +41,7 @@ fun CardHomeScreen(
     heading: String,
     image: Int,
     modifier: Modifier = Modifier,
+    cornerSize : Dp = 8.dp,
     onClick : () -> Unit
 ) {
     Column(
@@ -51,7 +53,7 @@ fun CardHomeScreen(
     {
         Card(
             modifier = modifier
-                .size(170.dp)
+                .size(150.dp)
                 .border(
                     width = 0.4.dp,
                     brush = Brush.linearGradient(
@@ -60,19 +62,19 @@ fun CardHomeScreen(
                             DarkBlue
                         )
                     ),
-                    shape = RoundedCornerShape(8.dp)
+                    shape = RoundedCornerShape(cornerSize)
                 )
                 .background(Color.Transparent)
                 .shadow(
                     elevation = 10.dp,
-                    shape = RoundedCornerShape(8.dp),
+                    shape = RoundedCornerShape(cornerSize),
                     ambientColor = DarkBlue,
                     spotColor = DarkBlue
                 ),
             onClick = {
                 onClick()
             },
-            shape = RoundedCornerShape(8.dp),
+            shape = RoundedCornerShape(cornerSize),
 
             ) {
             Box(
@@ -80,7 +82,7 @@ fun CardHomeScreen(
                     .fillMaxSize()
                     .align(Alignment.CenterHorizontally)
                     .background(color = Color.White)
-                    .clip(shape = RoundedCornerShape(8.dp))
+                    .clip(shape = RoundedCornerShape(cornerSize))
             ) {
 
                 Image(
@@ -107,8 +109,8 @@ fun CardHomeScreen(
                 brush = Brush.linearGradient(
                     colors = listOf(
                     Color.White,
-                    Color(color = 0xFF0858D1),
-                    Color(color = 0xFF003F9E)
+                    Color(color = 0xFF0858D1)
+//                    Color(color = 0xFF003F9E)
                 ),
                     tileMode = TileMode.Mirror
                 )),

@@ -1,6 +1,6 @@
 package com.example.antrikshgyan.data.remote.dto.isro
 
-import com.example.antrikshgyan.domain.model.ISROLaunchesModel
+import com.example.antrikshgyan.domain.model.isro.ISROLaunchesModel
 
 data class ISROLaunchesDto(
     val LaunchDate: String,

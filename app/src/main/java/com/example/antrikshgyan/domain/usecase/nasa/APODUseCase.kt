@@ -3,7 +3,7 @@ package com.example.antrikshgyan.domain.usecase.nasa
 import android.util.Log
 import com.example.antrikshgyan.common.Resource
 import com.example.antrikshgyan.data.remote.dto.nasa.toAPODModel
-import com.example.antrikshgyan.domain.model.APODModel
+import com.example.antrikshgyan.domain.model.nasa.APODModel
 import com.example.antrikshgyan.domain.repository.NASARepository
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException

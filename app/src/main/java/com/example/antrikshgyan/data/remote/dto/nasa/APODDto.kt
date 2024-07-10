@@ -1,6 +1,6 @@
 package com.example.antrikshgyan.data.remote.dto.nasa
 
-import com.example.antrikshgyan.domain.model.APODModel
+import com.example.antrikshgyan.domain.model.nasa.APODModel
 
 data class APODDto(
     val date: String?,
@@ -13,7 +13,7 @@ data class APODDto(
     val copyright : String?
 )
 
-fun APODDto.toAPODModel() : APODModel{
+fun APODDto.toAPODModel() : APODModel {
     return APODModel(
         explanation,media_type,title,url, hdurl, copyright
     )
