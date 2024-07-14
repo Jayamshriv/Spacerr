@@ -39,11 +39,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.antrikshgyan.R
 import com.example.antrikshgyan.domain.model.nasa.APODModel
 import com.example.antrikshgyan.presentation.common.TopAppCustomBar
+import com.example.antrikshgyan.presentation.nasa.viewmodel.APODViewModel
 import com.example.antrikshgyan.presentation.navgraph.Routes
 import com.example.antrikshgyan.ui.theme.Blue
 import com.example.antrikshgyan.ui.theme.Purple
@@ -54,14 +56,11 @@ import kotlinx.coroutines.delay
 @Composable
 fun APODScreen(
     heading : String,
-    apodModel: APODModel,
     navController: NavController
 ) {
-
+    val apodViewModel: APODViewModel = hiltViewModel()
     val TAG = "APODScreen"
-    val apod = apodModel
-    var revealContent by remember { mutableStateOf(false) }
-
+    val apodState = apodViewModel.state
 
     Box (
         Modifier.fillMaxSize()
@@ -93,34 +92,29 @@ fun APODScreen(
                 }
             }
         ) { innerPadding ->
-
+            Log.e("padding", innerPadding.toString())
             Column(
                 Modifier
+                    .padding(innerPadding)
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
                     .padding(horizontal = 12.dp, vertical = 4.dp)
-                    .padding(innerPadding)
+
 
             ) {
-                Log.e(TAG, apod.toString())
-                Text(
-                    text = apod.title!!,
-                    fontFamily = fonts,
-                    color = Color.White,
-                    fontSize = 18.sp,
-                    lineHeight = 25.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    style = MaterialTheme.typography.bodyLarge
-                )
+                Log.e(TAG, apodState.toString())
 
-
-
-                LaunchedEffect(key1 = Unit) {
-                    delay(1000)
-                    revealContent = true
-                }
-
-                if (revealContent) {
+                if (!apodState.isLoading and apodState.error.isEmpty()) {
+                    val apod = apodState.apod
+                    Text(
+                        text = apod.title!!,
+                        fontFamily = fonts,
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        lineHeight = 25.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
 
                     Image(
                         painter = rememberAsyncImagePainter(model = apod.hdurl),
@@ -132,7 +126,7 @@ fun APODScreen(
                             .padding(vertical = 8.dp)
                             .background(
                                 shape = RoundedCornerShape(12.dp),
-                                color = Color.White
+                                color = Color.Transparent
                             )
                             .border(
                                 BorderStroke(

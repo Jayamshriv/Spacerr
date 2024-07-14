@@ -39,6 +39,7 @@ fun ExploreHomeScreen(
             color = Color.White,
             fontSize = 18.sp,
             lineHeight = 25.sp,
+            modifier = Modifier.padding(bottom = 8.dp),
             fontWeight = FontWeight.SemiBold,
             style = MaterialTheme.typography.bodyLarge
         )
@@ -46,7 +47,8 @@ fun ExploreHomeScreen(
         Row(
             modifier = Modifier
                 .horizontalScroll(rememberScrollState())
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             CardHomeScreen(heading = "Daily Shit", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
 

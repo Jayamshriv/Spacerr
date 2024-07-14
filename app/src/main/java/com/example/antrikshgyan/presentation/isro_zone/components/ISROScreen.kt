@@ -49,14 +49,11 @@ fun ISROScreen(
     val isroServiceViewModel: ISROServiceViewModel = hiltViewModel()
     val isroVercelViewModel: ISROVercelViewModel = hiltViewModel()
 
-    val spacecraftState = isroServiceViewModel.spacecraftResponse.value.spacecraft
-    val launchState = isroServiceViewModel.launchState.value.launch
-    val customerSatelliteState = isroVercelViewModel.customerSatelliteState.value.customerSatellite
-    val centreState = isroVercelViewModel.centreState.value.centres
-
     var revealContent by remember { mutableStateOf(false) }
 
-    Box {
+    Box(
+        Modifier.fillMaxSize()
+    ) {
         Image(
             painter = painterResource(id = R.drawable.astars),
             contentDescription = "astars",
@@ -69,7 +66,6 @@ fun ISROScreen(
         val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
         Scaffold(
             containerColor = Color.Transparent,
-            contentColor = Color(0xFF1F1F1F),
             modifier = Modifier
                 .fillMaxSize()
                 .nestedScroll(scrollBehaviour.nestedScrollConnection),
@@ -86,14 +82,16 @@ fun ISROScreen(
             Log.e("innerPadding", innerPadding.toString())
 
             LaunchedEffect(key1 = true) {
-                delay(1500)
+                delay(2500)
                 revealContent = true
             }
             if (revealContent) {
                 when (index) {
                     1 -> {
+                        val spacecraftState = isroServiceViewModel.spacecraftResponse.value.spacecraft
                         LazyColumn(
                             modifier = Modifier
+                                .fillMaxSize()
                                 .padding(innerPadding)
                                 .background(color = Color.Transparent)
                         ) {
@@ -101,10 +99,10 @@ fun ISROScreen(
                                 ISROSpacecraft(spacecraft = item)
                             }
                         }
-
                     }
 
                     2 -> {
+                        val launchState = isroServiceViewModel.launchState.value.launch
                         LazyColumn(
                             modifier = Modifier
                                 .padding(innerPadding)
@@ -118,6 +116,7 @@ fun ISROScreen(
                     }
 
                     3 -> {
+                        val customerSatelliteState = isroVercelViewModel.customerSatelliteState.value.customerSatellite
                         LazyColumn(
                             modifier = Modifier
                                 .padding(innerPadding)
@@ -131,6 +130,7 @@ fun ISROScreen(
                     }
 
                     4 -> {
+                        val centreState = isroVercelViewModel.centreState.value.centres
                         LazyColumn(
                             modifier = Modifier
                                 .padding(innerPadding)

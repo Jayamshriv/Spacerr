@@ -21,9 +21,11 @@ class MarsRoverImageUseCase @Inject constructor(
         sol: Int,
         page: Int,
     )  = flow<Resource<MarsRoverModel>> {
+        Log.d("API Calls", "Fetching Mars Rover Images for sol: $sol, page: $page")
         try {
             emit(Resource.Loading())
             val marsRoverModelResponse = repository.getMarsRoversImages(sol,page).toMarsRoverModel()
+            Log.e(TAG, marsRoverModelResponse.toString())
             emit(Resource.Success(data = marsRoverModelResponse))
         }catch(e: HttpException) {
             Log.e(TAG, "Unknown exception: ${e.message}")

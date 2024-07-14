@@ -19,14 +19,10 @@ fun NavGraph() {
 
     NavHost(navController = navController, startDestination = Routes.HomeScreen.routes){
         composable(route = Routes.APODScreen.routes) {
-            val apodModel = navController.previousBackStackEntry?.savedStateHandle?.get<APODModel>("apod")
-            apodModel?.let { it1 ->
                 APODScreen(
                     "Astronomy POD",
-                    apodModel,
                     navController
                 )
-            }
         }
         composable(
             route = Routes.HomeScreen.routes
@@ -49,7 +45,9 @@ fun NavGraph() {
         composable(
             route = Routes.MarsRoverScreen.routes
         ) {
-            MarsRoverScreen()
+            MarsRoverScreen(
+                navController
+            )
         }
     }
 }

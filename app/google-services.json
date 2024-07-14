@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "513857039008",
+    "project_id": "spacerr-20d38",
+    "storage_bucket": "spacerr-20d38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:513857039008:android:d18d30a8ebe3b7192237c5",
+        "android_client_info": {
+          "package_name": "com.example.antrikshgyan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8oKdb5fjgDWceMZtY3TKXcIrhHAjYm4U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

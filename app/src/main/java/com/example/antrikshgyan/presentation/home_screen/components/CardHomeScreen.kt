@@ -45,8 +45,7 @@ fun CardHomeScreen(
     onClick : () -> Unit
 ) {
     Column(
-        modifier = Modifier
-        .padding(8.dp),
+
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     )

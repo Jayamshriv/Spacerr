@@ -1,6 +1,7 @@
-package com.example.antrikshgyan
+    package com.example.antrikshgyan
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -18,6 +19,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
+import coil.imageLoader
 import com.example.antrikshgyan.presentation.home_screen.components.HomeScreen
 import com.example.antrikshgyan.presentation.navgraph.NavGraph
 import com.example.antrikshgyan.ui.theme.AntrikshGyanTheme
@@ -25,6 +28,14 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalCoilApi::class)
+    override fun onDestroy() {
+        super.onDestroy()
+        imageLoader.diskCache?.clear()
+        imageLoader.memoryCache?.clear()
+        Log.e("MainActivity", "Cache Cleared $imageLoader")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,7 +46,6 @@ class MainActivity : ComponentActivity() {
                     .background(brush = gradientBackground())) {
                    NavGraph()
                 }
-
             }
         }
     }
@@ -66,10 +76,12 @@ fun gradientBackground(): Brush {
 //            Color(0xFF161616),
 //            Color(0x57EB7D5B),
             Color(0xFF1EC6DB),
+//            Color(0x541EC6DB),
             Color(0xFF1B1B1B),
             Color(0xFF272727),
             Color(0xFF1B1B1B),
-            Color(0x575B79EB),
+//            Color(0x575B79EB),
+            Color(0x953A5DE2),
 //            Color(0x57EB5BA5),
 //            Color(0xFF161616),
 //            Color(0xFF4703C7),

@@ -15,10 +15,10 @@ interface APIService {
         @Query("api_key") apiKey: String
     ): APODDto
 
-    //https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=50&page=14&api_key=noMFHR9VTfElRHpLoPVcHaJNZsFU9hvtiIQyDS8m
+        //https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=50&page=14&api_key=noMFHR9VTfElRHpLoPVcHaJNZsFU9hvtiIQyDS8m
     @GET("/mars-photos/api/v1/rovers/curiosity/photos")
     suspend fun getMarsRoverImages(
-        @Query("sol") sol: Int = 1,
+        @Query("sol") sol: Int = 4102,
         @Query("page") page: Int = 1,
         @Query("api_key") apiKey: String = Constants.API_KEY
     ) : MarsRoverDto

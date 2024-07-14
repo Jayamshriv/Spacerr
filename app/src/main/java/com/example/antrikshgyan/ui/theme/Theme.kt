@@ -47,7 +47,7 @@ fun AntrikshGyanTheme(
     val view = LocalView.current
     val activity = view.context as Activity
 //    activity.window.statusBarColor = Color.Transparent.toArgb()
-//    activity.window.navigationBarColor = Blue.toArgb()
+    activity.window.navigationBarColor = Color.Transparent.toArgb()
     //    when {
 //        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
 //            val context = LocalContext.current
