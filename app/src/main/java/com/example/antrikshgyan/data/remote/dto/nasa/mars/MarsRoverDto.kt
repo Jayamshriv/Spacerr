@@ -1,5 +1,6 @@
 package com.example.antrikshgyan.data.remote.dto.nasa.mars
 
+import androidx.compose.runtime.toMutableStateList
 import com.example.antrikshgyan.domain.model.nasa.mars.MarsRoverModel
 import com.example.antrikshgyan.domain.model.nasa.mars.PhotoModel
 
@@ -13,6 +14,6 @@ fun MarsRoverDto.toMarsRoverModel(): MarsRoverModel {
         photosModel.add(item.toPhotoModel())
     }
     return MarsRoverModel(
-        photos = photosModel
+        photos = photosModel.toMutableStateList()
     )
 }

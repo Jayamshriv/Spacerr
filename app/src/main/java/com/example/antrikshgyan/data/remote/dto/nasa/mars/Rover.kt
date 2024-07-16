@@ -1,5 +1,6 @@
 package com.example.antrikshgyan.data.remote.dto.nasa.mars
 
+import androidx.compose.runtime.toMutableStateList
 import com.example.antrikshgyan.domain.model.nasa.mars.CameraModel
 import com.example.antrikshgyan.domain.model.nasa.mars.RoverModel
 
@@ -21,7 +22,7 @@ fun Rover.toRoverModel() : RoverModel{
         camerasList.add(item.toCameraModel())
     }
     return RoverModel(
-        cameras = camerasList,
+        cameras = camerasList.toMutableStateList(),
         landing_date = landing_date,
         launch_date = launch_date,
         max_date = max_date,

@@ -48,6 +48,7 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.example.antrikshgyan.domain.model.nasa.mars.PhotoModel
+import com.example.antrikshgyan.presentation.common.CenteredCircularProgress
 import com.example.antrikshgyan.presentation.common.InfoItem
 import com.example.antrikshgyan.ui.theme.Purple
 import com.example.antrikshgyan.ui.theme.fonts
@@ -55,7 +56,8 @@ import com.example.antrikshgyan.ui.theme.fonts
 @Composable
 fun MarsRoverImagesCard(
     modifier: Modifier = Modifier,
-    photoModel: PhotoModel?
+    photoModel: PhotoModel?,
+    onImageClick : ()-> Unit
 ) {
     val animatable = remember {
         Animatable(0.75f)
@@ -83,10 +85,46 @@ fun MarsRoverImagesCard(
                 .graphicsLayer {
                     this.scaleX = animatable.value
                     this.scaleY = animatable.value
-                }
+                },
+            onClick = {
+                onImageClick()
+            }
 
         ) {
-            Box{
+            Box(
+                contentAlignment = Alignment.Center
+            ) {
+                SubcomposeAsyncImage(
+                    model = photoModel.img_src,
+                    loading = {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(modifier = Modifier.size(48.dp))
+                        }
+                    },
+                    contentDescription = "image",
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier
+//                        .wrapContentWidth()
+//                        .wrapContentHeight()
+                        .fillMaxWidth()
+                        .height(300.dp)
+                        .clip(shape = RoundedCornerShape(12.dp))
+                        .background(
+                            shape = RoundedCornerShape(12.dp),
+                            color = Color.Transparent
+                        )
+                        .border(
+                            BorderStroke(
+                                0.4.dp, color = Purple
+                            ),
+                            shape = RoundedCornerShape(12.dp)
+                        )
+
+                )
 
                 Box(
                     modifier = Modifier
@@ -97,67 +135,41 @@ fun MarsRoverImagesCard(
                                     Color.Transparent,
                                     Color.Transparent,
                                     Color.Transparent,
+                                    Color.Transparent,
                                     Color(0xFF000000)
                                 )
                             )
                         )
-                        .padding(12.dp),
+                        .padding(8.dp),
                     contentAlignment = Alignment.BottomStart
 
                 ) {
-
-                    Row{
-                        InfoItem(heading = "Earth Date", value = photoModel.earth_date, headingFontSize = 12.sp, valueFontSize = 12.sp)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.Bottom,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        InfoItem(
+                            heading = "Earth Date",
+                            value = photoModel.earth_date,
+                            headingFontSize = 12.sp,
+                            valueFontSize = 12.sp
+                        )
+                        InfoItem(
+                            heading = "Sol",
+                            value = photoModel.sol.toString(),
+                            headingFontSize = 12.sp,
+                            valueFontSize = 12.sp
+                        )
                     }
+
                 }
 
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    SubcomposeAsyncImage(
-                        model = photoModel.img_src,
-                        loading = {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(modifier = Modifier.size(48.dp))
-                            }
-                        },
-                        contentDescription = "image",
-                        contentScale = ContentScale.FillBounds,
-                        modifier = Modifier
-//                        .wrapContentWidth()
-//                        .wrapContentHeight()
-                            .fillMaxWidth()
-                            .height(300.dp)
-                            .clip(shape = RoundedCornerShape(12.dp))
-                            .background(
-                                shape = RoundedCornerShape(12.dp),
-                                color = Color.Transparent
-                            )
-                            .border(
-                                BorderStroke(
-                                    0.4.dp, color = Purple
-                                ),
-                                shape = RoundedCornerShape(12.dp)
-                            )
-//                        .shadow(
-//                            elevation = 16.dp,
-//                            shape = RoundedCornerShape(12.dp),
-//                            clip = true,
-//                            ambientColor = Purple,
-//                            spotColor = Purple
-//                        )
-
-                    )
-                }
             }
+
 
         }
     } else {
-        Log.e(TAG, photoModel.toString())
+        CenteredCircularProgress()
     }
 }

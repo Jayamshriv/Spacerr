@@ -114,7 +114,6 @@ fun APODHomeScreen(
                         }
                 )
                 {
-                    //            val youtubeUrl = state.url
                     val youtubeUrl = state.url
                     //            https://www.youtube.com/embed/1R5QqhPq1Ik?rel=0
                     val videoId = youtubeUrl?.substringAfter("embed/")?.substringBefore("?rel")
@@ -171,9 +170,7 @@ fun APODHomeScreen(
                             )
                             .padding(12.dp),
                         contentAlignment = Alignment.BottomStart
-
                     ) {
-
                         Text(
                             text = state.title.toString(),
                             fontFamily = fonts,
@@ -184,7 +181,6 @@ fun APODHomeScreen(
                             style = MaterialTheme.typography.displaySmall
                         )
                     }
-
                 }
             }
         }
