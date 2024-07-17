@@ -53,6 +53,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -95,12 +96,12 @@ fun MarsRoverScreen(
     navController: NavController
 ) {
     val context = LocalContext.current
+    val viewModel: MarsRoverImageViewModel = hiltViewModel()
 
     var solState by remember { mutableStateOf(2500) }
     var pageState by remember { mutableStateOf(1) }
     var boxColor by remember { mutableStateOf(Color.Blue) }
 
-    val viewModel: MarsRoverImageViewModel = hiltViewModel()
     LaunchedEffect(Unit) {
         viewModel.getMarRoverImage(solState, pageState)
     }
@@ -154,24 +155,11 @@ fun MarsRoverScreen(
                             Log.e("MarsRoverScreen", marsRoverImageState.toString())
                     } else {
                         val marsRoverImageList = marsRoverImageState.marsRoverImage.photos
-                        val state = rememberLazyListState()
-                        // observe list scrolling
-                        val reachedBottom: Boolean by remember {
-                            derivedStateOf {
-                                val lastVisibleItem = state.layoutInfo.visibleItemsInfo.lastOrNull()
-                                lastVisibleItem?.index != 0 && lastVisibleItem?.index == state.layoutInfo.totalItemsCount - 1
-                            }
-                        }
-                        LaunchedEffect(reachedBottom) {
-                            delay(1000)
-                            if (reachedBottom){
-                                viewModel.getMarRoverImage(2500, 2)
-                            }
-                        }
-//                        state.
+//                        val state = rememberLazyListState()
+
                         LazyColumn(
                             verticalArrangement = Arrangement.Center,
-                            state = state
+//                            state = state
                         ) {
                             item{  Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -442,16 +430,7 @@ fun MarsRoverScreen(
                                 }
 
                             }
-                            item{
-                                if (reachedBottom) {
-                                    CenteredCircularProgress()
-                                }
-                                else{
-                                    Log.e("LazyListState",
-                                        state.layoutInfo.visibleItemsInfo.lastIndex.toString()
-                                    )
-                                }
-                            }
+
                         }
                     }
                 }

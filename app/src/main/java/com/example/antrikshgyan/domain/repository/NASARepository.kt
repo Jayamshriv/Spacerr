@@ -12,4 +12,7 @@ interface NASARepository {
         page: Int
     ): MarsRoverDto
 
+    suspend fun getAPODByCount(
+        count : Int
+    ) : MutableList<APODDto>
 }

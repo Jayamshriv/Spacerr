@@ -26,7 +26,7 @@ import com.example.antrikshgyan.ui.theme.fonts
 @Composable
 fun HeadingHomeScreen() {
     Column(
-        Modifier.padding(top = 32.dp, start = 4.dp)
+        Modifier.padding(top = 32.dp, start = 4.dp).padding(horizontal = 8.dp)
     ) {
         Text(
             text = "Welcome,",

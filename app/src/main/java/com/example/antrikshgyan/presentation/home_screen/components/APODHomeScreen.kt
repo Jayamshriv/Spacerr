@@ -58,11 +58,14 @@ fun APODHomeScreen(
 
     val localDensity = LocalDensity.current
     Log.e("APODHomeScreen1", heightOfCard.toString())
-    Column {
+    Column (
+        modifier = Modifier.padding(horizontal = 8.dp)
+    ){
         Card(
             modifier = Modifier
                 .padding(top = 14.dp, bottom = 8.dp)
                 .fillMaxWidth()
+                .height(heightOfCard)
                 .border(
                     BorderStroke(
                         0.4.dp, brush = Brush.linearGradient(
@@ -74,7 +77,6 @@ fun APODHomeScreen(
                     ),
                     shape = RoundedCornerShape(corner = CornerSize(12.dp))
                 )
-                .height(heightOfCard)
                 .shadow(
                     elevation = 6.dp,
                     ambientColor = Purple,

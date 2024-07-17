@@ -51,7 +51,7 @@ fun ExploreHomeScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             CardHomeScreen(heading = "Daily Shit", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
-
+                navController.navigate(Routes.DailyFactsScreen.routes)
             }
             CardHomeScreen(heading = "Locate ISS", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
 

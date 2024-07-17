@@ -4,5 +4,5 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 
 data class MarsRoverModel(
-    val photos: SnapshotStateList<PhotoModel> = mutableStateListOf()
+    val photos: MutableList<PhotoModel> = mutableListOf()
 )

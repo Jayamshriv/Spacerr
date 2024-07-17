@@ -25,5 +25,9 @@ class NASARepositoryImpl @Inject constructor(
         )
     }
 
+    override suspend fun getAPODByCount(count: Int): MutableList<APODDto> {
+        return nasaApi.getAPODByCount(count)
+    }
+
 
 }

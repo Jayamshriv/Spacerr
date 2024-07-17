@@ -1,10 +1,8 @@
 package com.example.antrikshgyan.presentation.home_screen.components
 
-import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,8 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,8 +27,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.antrikshgyan.R
-import com.example.antrikshgyan.ui.theme.Blue
 import com.example.antrikshgyan.ui.theme.DarkBlue
 import com.example.antrikshgyan.ui.theme.fonts
 
@@ -45,7 +39,6 @@ fun CardHomeScreen(
     onClick : () -> Unit
 ) {
     Column(
-
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     )
@@ -65,10 +58,10 @@ fun CardHomeScreen(
                 )
                 .background(Color.Transparent)
                 .shadow(
-                    elevation = 10.dp,
+                    elevation = 16.dp,
                     shape = RoundedCornerShape(cornerSize),
-                    ambientColor = DarkBlue,
-                    spotColor = DarkBlue
+                    ambientColor = Color.White,
+                    spotColor = Color.White
                 ),
             onClick = {
                 onClick()

@@ -40,6 +40,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.antrikshgyan.R
@@ -61,6 +62,9 @@ fun APODScreen(
     val apodViewModel: APODViewModel = hiltViewModel()
     val TAG = "APODScreen"
     val apodState = apodViewModel.state
+    var heightOfCard by remember {
+        mutableStateOf(300.dp)
+    }
 
     Box (
         Modifier.fillMaxSize()
@@ -115,32 +119,53 @@ fun APODScreen(
                         fontWeight = FontWeight.SemiBold,
                         style = MaterialTheme.typography.bodyLarge
                     )
+                    val youtubeUrl = apod.url
+                    //            https://www.youtube.com/embed/1R5QqhPq1Ik?rel=0
+                    val videoId = youtubeUrl?.substringAfter("embed/")?.substringBefore("?rel")
+                    var url = ""
 
-                    Image(
-                        painter = rememberAsyncImagePainter(model = apod.hdurl),
-                        contentDescription = "image",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(300.dp)
-                            .padding(vertical = 8.dp)
-                            .background(
-                                shape = RoundedCornerShape(12.dp),
-                                color = Color.Transparent
-                            )
-                            .border(
-                                BorderStroke(
-                                    0.4.dp, color = Color.White
-                                ),
-                                shape = RoundedCornerShape(12.dp)
-                            )
-                            .shadow(
-                                elevation = 16.dp,
-                                ambientColor = Purple,
-                                spotColor = Purple,
-                                shape = RoundedCornerShape(12.dp)
-                            )
-                    )
+                    if (apod.media_type == "video") {
+                        heightOfCard = 200.dp
+                        url = "https://img.youtube.com/vi/$videoId/mqdefault.jpg"
+
+                        YoutubePlayer(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            youtubeVideoId = videoId.toString(),
+                            lifecycleOwner = LocalLifecycleOwner.current,
+                        )
+                    } else {
+                        if (apod.hdurl != null) {
+                            url = apod.hdurl!!
+                        } else {
+                            url = apod.url.toString()
+                        }
+                        Image(
+                            painter = rememberAsyncImagePainter(model = url),
+                            contentDescription = "image",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(heightOfCard)
+                                .padding(vertical = 8.dp)
+                                .background(
+                                    shape = RoundedCornerShape(12.dp),
+                                    color = Color.Transparent
+                                )
+                                .border(
+                                    BorderStroke(
+                                        0.4.dp, color = Color.White
+                                    ),
+                                    shape = RoundedCornerShape(12.dp)
+                                )
+                                .shadow(
+                                    elevation = 16.dp,
+                                    ambientColor = Purple,
+                                    spotColor = Purple,
+                                    shape = RoundedCornerShape(12.dp)
+                                )
+                        )
+                    }
 
                     Text(
                         text = "Behind The Picture :",

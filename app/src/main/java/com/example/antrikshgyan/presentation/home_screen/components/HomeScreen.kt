@@ -39,7 +39,7 @@ fun HomeScreen(
             contentScale = ContentScale.FillBounds
         )
         LazyColumn(
-            modifier = Modifier.padding(8.dp).padding(bottom = 48.dp)
+            modifier = Modifier.padding(bottom = 48.dp)
         ) {
             item { HeadingHomeScreen() }
             item { APODHomeScreen(navController = navController) }

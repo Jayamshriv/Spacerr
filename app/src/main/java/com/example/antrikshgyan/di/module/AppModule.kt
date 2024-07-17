@@ -13,6 +13,7 @@ import com.example.antrikshgyan.domain.repository.ISROVercelRepository
 import com.example.antrikshgyan.domain.repository.NASARepository
 import com.example.antrikshgyan.domain.usecase.isro.ISROServiceUseCase
 import com.example.antrikshgyan.domain.usecase.isro.ISROVercelUseCase
+import com.example.antrikshgyan.domain.usecase.nasa.APODByCountUseCase
 import com.example.antrikshgyan.domain.usecase.nasa.APODUseCase
 import com.example.antrikshgyan.domain.usecase.nasa.MarsRoverImageUseCase
 import dagger.Module
@@ -117,6 +118,12 @@ object AppModule {
         return MarsRoverImageUseCase(repository)
     }
 
+    //---------------------------APOD By Count----------------------------------
 
+    @Provides
+    @Singleton
+    fun providesAPODByCountUseCase(repository: NASARepository) : APODByCountUseCase{
+        return APODByCountUseCase(repository)
+    }
 
 }

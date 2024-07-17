@@ -30,4 +30,10 @@ interface APIService {
         @Query("api_key") apiKey: String = Constants.API_KEY
     ) : MarsRoverDto
 
+    //https://api.nasa.gov/planetary/apod?count=50&api_key=noMFHR9VTfElRHpLoPVcHaJNZsFU9hvtiIQyDS8m
+    @GET("/planetary/apod")
+    suspend fun getAPODByCount(
+        @Query("count") count : Int,
+        @Query("api_key") apiKey: String = Constants.API_KEY
+    ) : MutableList<APODDto>
 }

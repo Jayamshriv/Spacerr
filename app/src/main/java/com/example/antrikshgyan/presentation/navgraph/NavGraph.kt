@@ -12,6 +12,7 @@ import com.example.antrikshgyan.presentation.home_screen.components.HomeScreen
 import com.example.antrikshgyan.presentation.isro_zone.components.ISROScreen
 import com.example.antrikshgyan.presentation.mars.components.MarsRoverDetailsScreen
 import com.example.antrikshgyan.presentation.mars.components.MarsRoverScreen
+import com.example.antrikshgyan.presentation.nasa.components.DailyFactsScreen
 
 @Composable
 fun NavGraph() {
@@ -56,6 +57,13 @@ fun NavGraph() {
             val photoModel= navController.previousBackStackEntry?.savedStateHandle?.get<PhotoModel>("roverImage")
             Log.e("roverImage", photoModel.toString())
             MarsRoverDetailsScreen(navController = navController, photoModel =photoModel )
+        }
+        composable(
+            route = Routes.DailyFactsScreen.routes
+        ){
+            DailyFactsScreen(
+                navController = navController
+            )
         }
     }
 }
