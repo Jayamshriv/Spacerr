@@ -28,24 +28,25 @@ class APODByCountViewModel @Inject constructor(
     fun getAPODByCount(count: Int) {
         viewModelScope.launch {
             useCase.getAPODByCount(count).collect { response ->
-                _apodList.value = when (response) {
+                when (response) {
                     is Resource.Success -> {
                         Log.e(TAG,"Success $response")
-                        APODByCountDataState(
+                        _apodList.value = APODByCountDataState(
                             isLoading = false,
                             apodList = response.data
                         )
                     }
 
                     is Resource.Loading -> {
-                        APODByCountDataState(
-                            isLoading = true,
-                            apodList = null
+                        Log.e(TAG,"loading ${response.data}")
+                        _apodList.value = APODByCountDataState(
+                            isLoading = true
                         )
                     }
 
                     is Resource.Error -> {
-                        APODByCountDataState(
+                        Log.e(TAG,"error  ${response.message}")
+                        _apodList.value = APODByCountDataState(
                             isLoading = false,
                             error = response.message ?: "Unknown Error!!!"
                         )

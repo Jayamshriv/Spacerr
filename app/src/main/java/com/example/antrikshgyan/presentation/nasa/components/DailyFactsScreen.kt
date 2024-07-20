@@ -39,9 +39,9 @@ fun DailyFactsScreen(
 ) {
     val TAG = "DailyFactsScreen"
     val apodViewModel: APODByCountViewModel = hiltViewModel()
-//    LaunchedEffect(Unit) {
+    LaunchedEffect(Unit){
         apodViewModel.getAPODByCount(20)
-//    }
+    }
     val dailyFactState by apodViewModel.apodList.collectAsState()
 
     Box(
@@ -95,7 +95,7 @@ fun DailyFactsScreen(
                     }
 
                     else -> {
-                        Log.e(TAG, "Response Successful")
+                        Log.e(TAG, "Response Successful $dailyFactState")
                         LazyColumn {
                             items(dailyFactState.apodList!!) { item ->
                                 DailyFactItemCard(item)

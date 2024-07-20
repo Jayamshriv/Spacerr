@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -44,6 +45,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.antrikshgyan.R
 import com.example.antrikshgyan.domain.model.nasa.APODModel
 import com.example.antrikshgyan.presentation.common.CenteredCircularProgress
+import com.example.antrikshgyan.presentation.common.FullScreenImage
 import com.example.antrikshgyan.presentation.common.TopAppCustomBar
 import com.example.antrikshgyan.presentation.navgraph.Routes
 import com.example.antrikshgyan.ui.theme.Blue
@@ -58,6 +60,9 @@ fun DailyFactDetailsPartialBottomSheet(
     var heightOfCard by remember {
         mutableStateOf(300.dp)
     }
+    var showImageDialog by remember {
+        mutableStateOf(false)
+    }
 
     Column(
         Modifier
@@ -71,6 +76,7 @@ fun DailyFactDetailsPartialBottomSheet(
 
         if (dailyFactDetails != null) {
             val apod = dailyFactDetails
+
             Text(
                 text = apod.title!!,
                 fontFamily = fonts,
@@ -96,17 +102,19 @@ fun DailyFactDetailsPartialBottomSheet(
                     lifecycleOwner = LocalLifecycleOwner.current,
                 )
             } else {
-                if (apod.hdurl != null) {
-                    url = apod.hdurl!!
-                } else {
-                    url = apod.url.toString()
+//                if (apod.hdurl != null) {
+//                    url = apod.hdurl!!
+//                } else {
+//                    url = apod.url.toString()
+//                }
+                if(showImageDialog) {
+                    FullScreenImage(url = apod.hdurl ?: apod.url){
+                        showImageDialog = false
+                    }
                 }
                 SubcomposeAsyncImage(
-                    model = url,
+                    model = apod.url.toString(),
                     contentDescription = "image",
-                    loading = {
-                        CircularProgressIndicator()
-                    },
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -128,6 +136,13 @@ fun DailyFactDetailsPartialBottomSheet(
                             spotColor = Purple,
                             shape = RoundedCornerShape(12.dp)
                         )
+                        .clickable {
+                            showImageDialog = true
+                        }
+                    ,
+                    loading = {
+                            CenteredCircularProgress()
+                    }
                 )
             }
 
@@ -155,9 +170,12 @@ fun DailyFactDetailsPartialBottomSheet(
 
 
         } else {
-                CenteredCircularProgress(
-                    modifier = Modifier.size(48.dp),
-                )
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ){
+                    CenteredCircularProgress()
+                }
 
         }
     }

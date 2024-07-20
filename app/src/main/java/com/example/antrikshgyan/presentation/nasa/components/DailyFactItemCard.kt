@@ -135,7 +135,7 @@ fun DailyFactItemCard(
                         shape = RectangleShape
                     )
             ){
-                if (item.media_type != "video"){
+                if (item.media_type.toString() != "video"){
                     Image(
                         painter = rememberAsyncImagePainter(model = item.url),
                         contentDescription = "image",
@@ -149,7 +149,7 @@ fun DailyFactItemCard(
             }
             if (showBottomSheet) {
                 ModalBottomSheet(
-                    containerColor =Color(0xFF0B112E),
+                    containerColor =Color(0xFF003744),
                     contentColor = Color.White,
                     modifier = Modifier
                         .fillMaxHeight()

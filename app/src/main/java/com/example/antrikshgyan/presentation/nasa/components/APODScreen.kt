@@ -5,6 +5,9 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.rememberTransformableState
+import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,7 +25,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,8 +32,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -44,19 +49,18 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.antrikshgyan.R
-import com.example.antrikshgyan.domain.model.nasa.APODModel
+import com.example.antrikshgyan.presentation.common.FullScreenImage
 import com.example.antrikshgyan.presentation.common.TopAppCustomBar
 import com.example.antrikshgyan.presentation.nasa.viewmodel.APODViewModel
 import com.example.antrikshgyan.presentation.navgraph.Routes
 import com.example.antrikshgyan.ui.theme.Blue
 import com.example.antrikshgyan.ui.theme.Purple
 import com.example.antrikshgyan.ui.theme.fonts
-import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun APODScreen(
-    heading : String,
+    heading: String,
     navController: NavController
 ) {
     val apodViewModel: APODViewModel = hiltViewModel()
@@ -65,10 +69,12 @@ fun APODScreen(
     var heightOfCard by remember {
         mutableStateOf(300.dp)
     }
-
-    Box (
+    var showImageDialog by remember {
+        mutableStateOf(false)
+    }
+    Box(
         Modifier.fillMaxSize()
-    ){
+    ) {
         Image(
             painter = painterResource(id = R.drawable.astars_bg),
             contentDescription = "bg",
@@ -97,14 +103,13 @@ fun APODScreen(
             }
         ) { innerPadding ->
             Log.e("padding", innerPadding.toString())
+
             Column(
                 Modifier
                     .padding(innerPadding)
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
                     .padding(horizontal = 12.dp, vertical = 4.dp)
-
-
             ) {
                 Log.e(TAG, apodState.toString())
 
@@ -140,31 +145,41 @@ fun APODScreen(
                         } else {
                             url = apod.url.toString()
                         }
-                        Image(
-                            painter = rememberAsyncImagePainter(model = url),
-                            contentDescription = "image",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(heightOfCard)
-                                .padding(vertical = 8.dp)
-                                .background(
-                                    shape = RoundedCornerShape(12.dp),
-                                    color = Color.Transparent
-                                )
-                                .border(
-                                    BorderStroke(
-                                        0.4.dp, color = Color.White
-                                    ),
-                                    shape = RoundedCornerShape(12.dp)
-                                )
-                                .shadow(
-                                    elevation = 16.dp,
-                                    ambientColor = Purple,
-                                    spotColor = Purple,
-                                    shape = RoundedCornerShape(12.dp)
-                                )
-                        )
+                        if(showImageDialog) {
+                            FullScreenImage(url = apodState.apod.hdurl ?: apodState.apod.url){
+                                showImageDialog = false
+                            }
+                        }
+                            Image(
+                                painter = rememberAsyncImagePainter(model = url),
+                                contentDescription = "image",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(heightOfCard)
+                                    .padding(vertical = 8.dp)
+                                    .background(
+                                        shape = RoundedCornerShape(12.dp),
+                                        color = Color.Transparent
+                                    )
+                                    .border(
+                                        BorderStroke(
+                                            0.4.dp, color = Color.White
+                                        ),
+                                        shape = RoundedCornerShape(12.dp)
+                                    )
+                                    .shadow(
+                                        elevation = 16.dp,
+                                        ambientColor = Purple,
+                                        spotColor = Purple,
+                                        shape = RoundedCornerShape(12.dp)
+                                    )
+                                    .clickable {
+                                        showImageDialog = true
+                                    }
+                            )
+
+
                     }
 
                     Text(
@@ -190,8 +205,7 @@ fun APODScreen(
                     )
 
 
-                }
-                else {
+                } else {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
@@ -204,7 +218,10 @@ fun APODScreen(
                     }
                 }
             }
+
+
         }
     }
 }
+
 //}
