@@ -144,10 +144,10 @@ fun APODHomeScreen(
                             //                    }
                         )
                     } else {
-                        if (state.hdurl != null) {
-                            url = state.hdurl!!
+                        if (state.url != null) {
+                            url = state.url!!
                         } else {
-                            url = state.url.toString()
+                            url = state.hdurl!!
                         }
                         Image(
                             painter = rememberAsyncImagePainter(model = url),

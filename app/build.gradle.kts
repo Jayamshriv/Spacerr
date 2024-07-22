@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+
 }
 
 android {
@@ -81,6 +83,8 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
     implementation(libs.gson)
+    implementation(libs.converter.scalars)
+
 
     // For ksp to work you need to add plugin dependency, you can also use kapt, but it'll be slower.
     implementation(libs.hilt.android)
@@ -105,7 +109,13 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     //firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
-    implementation("com.google.firebase:firebase-analytics")
+    implementation(platform(libs.google.firebase.bom))
+    implementation(libs.firebase.analytics)
+
+    //google maps
+    implementation(libs.maps.compose)
+    implementation ("com.google.android.gms:play-services-maps:19.0.0")
+
+
 
 }

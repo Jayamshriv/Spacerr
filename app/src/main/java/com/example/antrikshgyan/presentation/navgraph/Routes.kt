@@ -9,4 +9,5 @@ sealed class Routes(
     data object MarsRoverScreen : Routes("MarsRoverScreen")
     data object MarsRoverDetailsScreen : Routes("MarsRoverDetailsScreen")
     data object DailyFactsScreen : Routes("DailyFactsScreen")
+    data object ISSLocationScreen : Routes("ISSLocationScreen")
 }

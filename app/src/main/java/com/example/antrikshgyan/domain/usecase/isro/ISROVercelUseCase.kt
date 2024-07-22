@@ -6,7 +6,7 @@ import com.example.antrikshgyan.data.remote.dto.isro.toCentreModel
 import com.example.antrikshgyan.data.remote.dto.isro.toCustomerSatelliteModel
 import com.example.antrikshgyan.domain.model.isro.CentreModel
 import com.example.antrikshgyan.domain.model.isro.CustomerSatelliteModel
-import com.example.antrikshgyan.domain.repository.ISROVercelRepository
+import com.example.antrikshgyan.domain.repository.isro.ISROVercelRepository
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException

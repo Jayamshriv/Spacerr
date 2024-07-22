@@ -3,7 +3,7 @@ package com.example.antrikshgyan.data.repository.isro
 import com.example.antrikshgyan.data.remote.apiservice.IsroServiceApiService
 import com.example.antrikshgyan.data.remote.dto.isro.ISROLaunchesDto
 import com.example.antrikshgyan.data.remote.dto.isro.ISROSpacecraftDto
-import com.example.antrikshgyan.domain.repository.ISROServiceRepository
+import com.example.antrikshgyan.domain.repository.isro.ISROServiceRepository
 import retrofit2.Response
 import javax.inject.Inject
 

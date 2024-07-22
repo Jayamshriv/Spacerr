@@ -3,7 +3,7 @@ package com.example.antrikshgyan.data.repository.isro
 import com.example.antrikshgyan.data.remote.apiservice.IsroVercelApiService
 import com.example.antrikshgyan.data.remote.dto.isro.ISROCentresDto
 import com.example.antrikshgyan.data.remote.dto.isro.ISROCusSatellitesDto
-import com.example.antrikshgyan.domain.repository.ISROVercelRepository
+import com.example.antrikshgyan.domain.repository.isro.ISROVercelRepository
 import javax.inject.Inject
 
 class ISROVercelRepositoryImpl @Inject constructor(

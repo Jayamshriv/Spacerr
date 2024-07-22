@@ -1,4 +1,4 @@
-package com.example.antrikshgyan.domain.repository
+package com.example.antrikshgyan.domain.repository.nasa
 
 import com.example.antrikshgyan.data.remote.dto.nasa.APODDto
 import com.example.antrikshgyan.data.remote.dto.nasa.mars.MarsRoverDto

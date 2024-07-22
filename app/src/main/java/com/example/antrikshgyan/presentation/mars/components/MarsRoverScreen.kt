@@ -161,7 +161,8 @@ fun MarsRoverScreen(
                             verticalArrangement = Arrangement.Center,
 //                            state = state
                         ) {
-                            item{  Row(
+                            item{
+                                Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceEvenly,
                                 verticalAlignment = Alignment.CenterVertically
