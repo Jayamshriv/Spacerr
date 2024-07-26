@@ -44,6 +44,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.SubcomposeAsyncImage
 import coil.compose.rememberAsyncImagePainter
 import com.example.antrikshgyan.R
 
@@ -107,10 +108,13 @@ fun FullScreenImage(
                         y = (offset.y + scale * panChange.y).coerceIn(-maxY, maxY),
                     )
                 }
-            Image(
-                painter = rememberAsyncImagePainter(model = url),
+            SubcomposeAsyncImage(
+                model = url,
                 contentDescription = "image",
                 contentScale = ContentScale.FillBounds,
+                loading = {
+                    CenteredCircularProgress()
+                },
                 modifier = Modifier
                     .clipToBounds()
                     .graphicsLayer {

@@ -422,6 +422,7 @@ fun MarsRoverScreen(
                                     }
                                 )
                             }}
+
                             items(marsRoverImageList) { item ->
                                 MarsRoverImagesCard(
                                     photoModel = item

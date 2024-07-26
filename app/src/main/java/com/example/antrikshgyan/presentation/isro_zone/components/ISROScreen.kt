@@ -74,8 +74,7 @@ fun ISROScreen(
                     heading = heading,
                     scrollBehavior = scrollBehaviour
                 ) {
-                    navController.popBackStack()
-                    navController.navigate(Routes.HomeScreen.routes)
+                    navController.navigateUp()
                 }
             }
         ) { innerPadding ->

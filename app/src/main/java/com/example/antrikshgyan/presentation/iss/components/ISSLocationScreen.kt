@@ -10,6 +10,7 @@ import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.animation.with
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -67,6 +68,7 @@ fun ISSLocationScreen() {
     val localUriHandler = LocalUriHandler.current
     val context = LocalContext.current
     val issViewModel: ISSPositionViewModel = hiltViewModel()
+
     LaunchedEffect(Unit) {
         issViewModel.getISSPosition("kilometers")
         issViewModel.getISSPositionDetail(
@@ -74,16 +76,15 @@ fun ISSLocationScreen() {
             issViewModel.issPos.issPosition.longitude!!
         )
     }
+
     LaunchedEffect(Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            while (true) {
-                delay(5000)
-                issViewModel.getISSPosition("kilometers")
-                issViewModel.getISSPositionDetail(
-                    issViewModel.issPos.issPosition.latitude!!,
-                    issViewModel.issPos.issPosition.longitude!!
-                )
-            }
+        while (true) {
+            delay(10000)
+            issViewModel.getISSPosition("kilometers")
+            issViewModel.getISSPositionDetail(
+                issViewModel.issPos.issPosition.latitude!!,
+                issViewModel.issPos.issPosition.longitude!!
+            )
         }
     }
 //    val issLatLng = issViewModel.issPos.issPosition
@@ -113,7 +114,6 @@ fun ISSLocationScreen() {
     )
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 private fun GMapISS(
     context: Context,
@@ -153,7 +153,7 @@ private fun GMapISS(
             .navigationBarsPadding(),
         contentAlignment = Alignment.BottomCenter
     ) {
-        var fabWidthState by remember { mutableStateOf(0.65f)}
+        var fabWidthState by remember { mutableStateOf(0.65f) }
         var expanded by remember { mutableStateOf(false) }
         Surface(
             modifier = Modifier.wrapContentSize(),
@@ -164,19 +164,19 @@ private fun GMapISS(
             AnimatedContent(
                 targetState = expanded,
                 transitionSpec = {
-                    fadeIn(animationSpec = tween(300, 300)) with fadeOut(animationSpec = tween(300)) using
+                    fadeIn(animationSpec = tween(450, 450)) togetherWith fadeOut(animationSpec = tween(450)) using
                             SizeTransform { initialSize, targetSize ->
                                 if (targetState) {
                                     keyframes {
-                                        IntSize(Int.MAX_VALUE,initialSize.height) at 400
+                                        IntSize(Int.MAX_VALUE, initialSize.height) at 400
                                         IntSize(targetSize.width, targetSize.height) at 400
-                                        durationMillis = 300
+                                        durationMillis = 450
                                     }
                                 } else {
                                     keyframes {
-                                        IntSize(Int.MAX_VALUE, initialSize.height) at 400
+                                        IntSize(targetSize.width, targetSize.height) at 400
                                         IntSize(initialSize.width, initialSize.height) at 400
-                                        durationMillis = 300
+                                        durationMillis = 450
                                     }
                                 }
                             }
