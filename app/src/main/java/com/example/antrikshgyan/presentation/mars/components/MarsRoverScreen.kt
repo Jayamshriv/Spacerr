@@ -61,8 +61,10 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -71,6 +73,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -151,8 +154,8 @@ fun MarsRoverScreen(
                 ) {
 
                     if (marsRoverImageState.isLoading or marsRoverImageState.error.isNotEmpty()) {
-                            CenteredCircularProgress()
-                            Log.e("MarsRoverScreen", marsRoverImageState.toString())
+                        CenteredCircularProgress()
+                        Log.e("MarsRoverScreen", marsRoverImageState.toString())
                     } else {
                         val marsRoverImageList = marsRoverImageState.marsRoverImage.photos
 //                        val state = rememberLazyListState()
@@ -161,278 +164,325 @@ fun MarsRoverScreen(
                             verticalArrangement = Arrangement.Center,
 //                            state = state
                         ) {
-                            item{
+                            item {
                                 Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceEvenly,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Row(
-                                    horizontalArrangement = Arrangement.Center,
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceEvenly,
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text(
-                                        text = "Sol : ",
-                                        fontFamily = fonts,
-                                        color = Color.White,
-                                        fontSize = 16.sp,
-                                        lineHeight = 25.sp,
-                                        fontWeight = FontWeight.SemiBold,
-                                        style = MaterialTheme.typography.bodyLarge
-
-                                    )
                                     Row(
-                                        modifier = Modifier
-                                            .wrapContentWidth()
-                                            .height(44.dp)
-                                            .border(
-                                                BorderStroke(
-                                                    width = 0.5.dp,
-                                                    color = boxColor,
-                                                ),
-                                                shape = RoundedCornerShape(12.dp)
-                                            )
-                                            .background(
-                                                color = Color(0x79696969),
-                                                shape = RoundedCornerShape(12.dp)
-                                            )
-//                        .alpha(0.8f)
-                                            .shadow(
-                                                elevation = 0.dp,
-                                                ambientColor = Blue,
-                                                spotColor = Blue
-                                            ),
                                         horizontalArrangement = Arrangement.Center,
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
-                                        IconButton(
-                                            modifier = Modifier
-                                                .size(20.dp),
-                                            onClick = {
-                                                if (solState > 0) {
-                                                    solState -= 1
-                                                } else {
-                                                    Toast.makeText(
-                                                        context,
-                                                        "ab kya time travel karega",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
-                                                }
-                                            }
-                                        ) {
-                                            Image(
-                                                imageVector = Icons.Filled.KeyboardArrowLeft,
-                                                contentDescription = "previous",
-                                                colorFilter = ColorFilter.tint(Color.White)
-                                            )
-                                        }
+                                        Text(
+                                            text = "Sol : ",
+                                            fontFamily = fonts,
+                                            color = Color.White,
+                                            fontSize = 16.sp,
+                                            lineHeight = 25.sp,
+                                            fontWeight = FontWeight.SemiBold,
+                                            style = MaterialTheme.typography.bodyLarge
 
-                                        TextField(
-                                            colors = TextFieldDefaults.colors(
-                                                focusedIndicatorColor = Color.Transparent,
-                                                unfocusedIndicatorColor = Color.Transparent,
-                                                disabledIndicatorColor = Color.Transparent,
-                                                focusedContainerColor = Color.Transparent,
-                                                unfocusedContainerColor = Color.Transparent,
-                                                disabledContainerColor = Color.Transparent,
-                                                focusedTextColor = Color.White
-                                            ),
-                                            maxLines = 1,
-                                            minLines = 1,
-                                            textStyle = TextStyle(
-                                                color = Color.White,
-                                                fontFamily = fonts,
-                                                fontSize = 12.sp,
-                                                textAlign = TextAlign.Center
-                                            ),
-                                            placeholder = { Text(text = "Sol") },
-                                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                                            modifier = Modifier
-                                                .width(72.dp)
-                                                .height(52.dp),
-                                            value = solState.toString(),
-                                            onValueChange = { newValue ->
-
-                                                Log.e("SolCount", newValue)
-                                                val newSolState = newValue.trim().toIntOrNull()
-                                                if (newSolState != null && 0 < newSolState && newSolState <= 4102) {
-                                                    solState = newSolState
-                                                    boxColor = Blue
-                                                } else {
-                                                    boxColor = FailureRed
-                                                    Log.e("SolCount", "Invalid input: $newValue")
-                                                }
-                                            }
                                         )
-
-                                        IconButton(
+                                        Row(
                                             modifier = Modifier
-                                                .size(20.dp),
-                                            onClick = {
-                                                if (solState <= 4102) {
-                                                    solState += 1
-                                                } else {
-                                                    Toast.makeText(
-                                                        context,
-                                                        "ab kya time travel karega",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
-                                                }
-                                            }
+                                                .wrapContentWidth()
+                                                .height(44.dp)
+                                                .border(
+                                                    BorderStroke(
+                                                        width = 0.5.dp,
+                                                        color = boxColor,
+                                                    ),
+                                                    shape = RoundedCornerShape(12.dp)
+                                                )
+                                                .background(
+                                                    color = Color(0x79696969),
+                                                    shape = RoundedCornerShape(12.dp)
+                                                )
+//                        .alpha(0.8f)
+                                                .shadow(
+                                                    elevation = 0.dp,
+                                                    ambientColor = Blue,
+                                                    spotColor = Blue
+                                                ),
+                                            horizontalArrangement = Arrangement.Center,
+                                            verticalAlignment = Alignment.CenterVertically
                                         ) {
-                                            Image(
-                                                imageVector = Icons.Filled.KeyboardArrowRight,
-                                                contentDescription = "previous",
-                                                colorFilter = ColorFilter.tint(Color.White)
+                                            IconButton(
+                                                modifier = Modifier
+                                                    .size(20.dp),
+                                                onClick = {
+                                                    if (solState > 0) {
+                                                        solState -= 1
+                                                    } else {
+                                                        Toast.makeText(
+                                                            context,
+                                                            "ab kya time travel karega",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+                                                    }
+                                                }
+                                            ) {
+                                                Image(
+                                                    imageVector = Icons.Filled.KeyboardArrowLeft,
+                                                    contentDescription = "previous",
+                                                    colorFilter = ColorFilter.tint(Color.White)
+                                                )
+                                            }
+
+                                            TextField(
+                                                colors = TextFieldDefaults.colors(
+                                                    focusedIndicatorColor = Color.Transparent,
+                                                    unfocusedIndicatorColor = Color.Transparent,
+                                                    disabledIndicatorColor = Color.Transparent,
+                                                    focusedContainerColor = Color.Transparent,
+                                                    unfocusedContainerColor = Color.Transparent,
+                                                    disabledContainerColor = Color.Transparent,
+                                                    focusedTextColor = Color.White
+                                                ),
+                                                maxLines = 1,
+                                                minLines = 1,
+                                                textStyle = TextStyle(
+                                                    color = Color.White,
+                                                    fontFamily = fonts,
+                                                    fontSize = 12.sp,
+                                                    textAlign = TextAlign.Center
+                                                ),
+                                                placeholder = { Text(text = "Sol") },
+                                                keyboardOptions = KeyboardOptions.Default.copy(
+                                                    keyboardType = KeyboardType.Number
+                                                ),
+                                                modifier = Modifier
+                                                    .width(72.dp)
+                                                    .height(52.dp),
+                                                value = solState.toString(),
+                                                onValueChange = { newValue ->
+
+                                                    Log.e("SolCount", newValue)
+                                                    val newSolState = newValue.trim().toIntOrNull()
+                                                    if (newSolState != null && 0 < newSolState && newSolState <= 4102) {
+                                                        solState = newSolState
+                                                        boxColor = Blue
+                                                    } else {
+                                                        boxColor = FailureRed
+                                                        Log.e(
+                                                            "SolCount",
+                                                            "Invalid input: $newValue"
+                                                        )
+                                                    }
+                                                }
                                             )
+
+                                            IconButton(
+                                                modifier = Modifier
+                                                    .size(20.dp),
+                                                onClick = {
+                                                    if (solState <= 4102) {
+                                                        solState += 1
+                                                    } else {
+                                                        Toast.makeText(
+                                                            context,
+                                                            "ab kya time travel karega",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+                                                    }
+                                                }
+                                            ) {
+                                                Image(
+                                                    imageVector = Icons.Filled.KeyboardArrowRight,
+                                                    contentDescription = "previous",
+                                                    colorFilter = ColorFilter.tint(Color.White)
+                                                )
+                                            }
                                         }
+
                                     }
 
-                                }
-
-                                Row(
-                                    horizontalArrangement = Arrangement.Center,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-
-                                    Text(
-                                        text = "Page : ",
-                                        fontFamily = fonts,
-                                        color = Color.White,
-                                        fontSize = 16.sp,
-                                        lineHeight = 25.sp,
-                                        fontWeight = FontWeight.SemiBold,
-                                        style = MaterialTheme.typography.bodyLarge
-
-                                    )
                                     Row(
-                                        modifier = Modifier
-                                            .wrapContentWidth()
-                                            .height(44.dp)
-                                            .border(
-                                                BorderStroke(
-                                                    width = 0.5.dp,
-                                                    color = boxColor,
-                                                ),
-                                                shape = RoundedCornerShape(12.dp)
-                                            )
-                                            .background(
-                                                color = Color(0x79696969),
-                                                shape = RoundedCornerShape(12.dp)
-                                            )
-//                        .alpha(0.8f)
-                                            .shadow(
-                                                elevation = 0.dp,
-                                                ambientColor = Blue,
-                                                spotColor = Blue
-                                            ),
                                         horizontalArrangement = Arrangement.Center,
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
-                                        IconButton(
-                                            modifier = Modifier
-                                                .size(20.dp),
-                                            onClick = {
-                                                if (pageState > 0) {
-                                                    pageState -= 1
-                                                } else {
-                                                    Toast.makeText(
-                                                        context,
-                                                        "ab kya time travel karega",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
-                                                }
-                                            }
-                                        ) {
-                                            Image(
-                                                imageVector = Icons.Filled.KeyboardArrowLeft,
-                                                contentDescription = "previous",
-                                                colorFilter = ColorFilter.tint(Color.White)
-                                            )
-                                        }
 
-                                        TextField(
-                                            colors = TextFieldDefaults.colors(
-                                                focusedIndicatorColor = Color.Transparent,
-                                                unfocusedIndicatorColor = Color.Transparent,
-                                                disabledIndicatorColor = Color.Transparent,
-                                                focusedContainerColor = Color.Transparent,
-                                                unfocusedContainerColor = Color.Transparent,
-                                                disabledContainerColor = Color.Transparent,
-                                                focusedTextColor = Color.White
-                                            ),
-                                            maxLines = 1,
-                                            minLines = 1,
-                                            textStyle = TextStyle(
-                                                color = Color.White,
-                                                fontFamily = fonts,
-                                                fontSize = 12.sp,
-                                                textAlign = TextAlign.Center
-                                            ),
-                                            placeholder = { Text(text = "Sol") },
-                                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                                            modifier = Modifier
-                                                .width(44.dp)
-                                                .height(52.dp),
-                                            value = pageState.toString(),
-                                            onValueChange = { newValue ->
+                                        Text(
+                                            text = "Page : ",
+                                            fontFamily = fonts,
+                                            color = Color.White,
+                                            fontSize = 16.sp,
+                                            lineHeight = 25.sp,
+                                            fontWeight = FontWeight.SemiBold,
+                                            style = MaterialTheme.typography.bodyLarge
 
-                                                Log.e("pageState", newValue)
-                                                val newpageState = newValue.trim().toIntOrNull()
-                                                if (newpageState != null && 0 < newpageState && newpageState <= 4102) {
-                                                    pageState = newpageState
-                                                    boxColor = Blue
-                                                } else {
-                                                    boxColor = FailureRed
-                                                    Log.e("pageState", "Invalid input: $newValue")
-                                                }
-                                            }
                                         )
-
-                                        IconButton(
+                                        Row(
                                             modifier = Modifier
-                                                .size(20.dp),
-                                            onClick = {
-                                                if (pageState <= 12) {
-                                                    pageState += 1
-                                                } else {
-                                                    Toast.makeText(
-                                                        context,
-                                                        "ab kya time travel karega",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
-                                                }
-                                            }
+                                                .wrapContentWidth()
+                                                .height(44.dp)
+                                                .border(
+                                                    BorderStroke(
+                                                        width = 0.5.dp,
+                                                        color = boxColor,
+                                                    ),
+                                                    shape = RoundedCornerShape(12.dp)
+                                                )
+                                                .background(
+                                                    color = Color(0x79696969),
+                                                    shape = RoundedCornerShape(12.dp)
+                                                )
+//                        .alpha(0.8f)
+                                                .shadow(
+                                                    elevation = 0.dp,
+                                                    ambientColor = Blue,
+                                                    spotColor = Blue
+                                                ),
+                                            horizontalArrangement = Arrangement.Center,
+                                            verticalAlignment = Alignment.CenterVertically
                                         ) {
-                                            Image(
-                                                imageVector = Icons.Filled.KeyboardArrowRight,
-                                                contentDescription = "previous",
-                                                colorFilter = ColorFilter.tint(Color.White)
+                                            IconButton(
+                                                modifier = Modifier
+                                                    .size(20.dp),
+                                                onClick = {
+                                                    if (pageState > 0) {
+                                                        pageState -= 1
+                                                    } else {
+                                                        Toast.makeText(
+                                                            context,
+                                                            "ab kya time travel karega",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+                                                    }
+                                                }
+                                            ) {
+                                                Image(
+                                                    imageVector = Icons.Filled.KeyboardArrowLeft,
+                                                    contentDescription = "previous",
+                                                    colorFilter = ColorFilter.tint(Color.White)
+                                                )
+                                            }
+
+                                            TextField(
+                                                colors = TextFieldDefaults.colors(
+                                                    focusedIndicatorColor = Color.Transparent,
+                                                    unfocusedIndicatorColor = Color.Transparent,
+                                                    disabledIndicatorColor = Color.Transparent,
+                                                    focusedContainerColor = Color.Transparent,
+                                                    unfocusedContainerColor = Color.Transparent,
+                                                    disabledContainerColor = Color.Transparent,
+                                                    focusedTextColor = Color.White
+                                                ),
+                                                maxLines = 1,
+                                                minLines = 1,
+                                                textStyle = TextStyle(
+                                                    color = Color.White,
+                                                    fontFamily = fonts,
+                                                    fontSize = 12.sp,
+                                                    textAlign = TextAlign.Center
+                                                ),
+                                                placeholder = { Text(text = "Sol") },
+                                                keyboardOptions = KeyboardOptions.Default.copy(
+                                                    keyboardType = KeyboardType.Number
+                                                ),
+                                                modifier = Modifier
+                                                    .width(44.dp)
+                                                    .height(52.dp),
+                                                value = pageState.toString(),
+                                                onValueChange = { newValue ->
+
+                                                    Log.e("pageState", newValue)
+                                                    val newpageState = newValue.trim().toIntOrNull()
+                                                    if (newpageState != null && 0 < newpageState && newpageState <= 4102) {
+                                                        pageState = newpageState
+                                                        boxColor = Blue
+                                                    } else {
+                                                        boxColor = FailureRed
+                                                        Log.e(
+                                                            "pageState",
+                                                            "Invalid input: $newValue"
+                                                        )
+                                                    }
+                                                }
                                             )
+
+                                            IconButton(
+                                                modifier = Modifier
+                                                    .size(20.dp),
+                                                onClick = {
+                                                    if (pageState <= 12) {
+                                                        pageState += 1
+                                                    } else {
+                                                        Toast.makeText(
+                                                            context,
+                                                            "ab kya time travel karega",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+                                                    }
+                                                }
+                                            ) {
+                                                Image(
+                                                    imageVector = Icons.Filled.KeyboardArrowRight,
+                                                    contentDescription = "previous",
+                                                    colorFilter = ColorFilter.tint(Color.White)
+                                                )
+                                            }
                                         }
                                     }
+
+                                    Image(
+                                        imageVector = Icons.Filled.Send,
+                                        contentDescription = "fghj",
+                                        colorFilter = ColorFilter.tint(Color.White),
+                                        modifier = Modifier
+                                            .size(32.dp)
+                                            .clickable {
+                                                viewModel.getMarRoverImage(solState, pageState)
+                                            }
+                                    )
                                 }
-
-                                Image(
-                                    imageVector = Icons.Filled.Send,
-                                    contentDescription = "fghj",
-                                    colorFilter = ColorFilter.tint(Color.White),
-                                    modifier = Modifier.size(32.dp).clickable {
-                                        viewModel.getMarRoverImage(solState, pageState)
-                                    }
-                                )
-                            }}
-
-                            items(marsRoverImageList) { item ->
-                                MarsRoverImagesCard(
-                                    photoModel = item
-                                ){
-                                    navController.currentBackStackEntry?.savedStateHandle?.set("roverImage", item)
-                                    navController.navigate(Routes.MarsRoverDetailsScreen.routes)
-                                }
-
                             }
 
+                            if (marsRoverImageList.isNotEmpty()) {
+
+                                items(marsRoverImageList) { item ->
+                                    MarsRoverImagesCard(
+                                        photoModel = item
+                                    ) {
+                                        navController.currentBackStackEntry?.savedStateHandle?.set(
+                                            "roverImage",
+                                            item
+                                        )
+                                        navController.navigate(Routes.MarsRoverDetailsScreen.routes)
+                                    }
+
+                                }
+                            } else {
+                                item {
+                                    Box(modifier = Modifier.fillParentMaxSize(),
+                                        contentAlignment = Alignment.Center) {
+                                        Text(
+                                            text = "The page $pageState is empty for sol $solState",
+                                            fontFamily = fonts,
+                                            fontSize = 24.sp,
+                                            textAlign = TextAlign.Justify,
+                                            lineHeight = 20.sp,
+                                            fontWeight = FontWeight.Medium,
+                                            color = Color.White,
+                                            modifier = Modifier
+                                                .fillParentMaxSize()
+                                                .padding(vertical = 4.dp),
+                                            style = TextStyle(
+                                                brush = Brush.radialGradient(
+                                                    listOf(
+                                                        Color(0xFF66A6D1),
+                                                        Color(0xFF3846C2),
+                                                        Color(0xFF6845BD),
+                                                        Color(0xFFA745BD),
+                                                    ),
+                                                    tileMode = TileMode.Mirror
+                                                )
+                                            ),
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 }

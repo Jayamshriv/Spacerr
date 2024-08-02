@@ -60,9 +60,9 @@ fun ExploreHomeScreen(
                 navController.navigate(Routes.MarsRoverScreen.routes)
             }
             CardHomeScreen(heading = "Insight 3D", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
-
+                navController.navigate(Routes.Insight3DScreen.routes)
             }
-            CardHomeScreen(heading = "Upcoming Launches", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
+            CardHomeScreen(heading = "Sonification", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
 
             }
 

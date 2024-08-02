@@ -105,7 +105,8 @@ fun CardHomeScreen(
 //                    Color(color = 0xFF003F9E)
                 ),
                     tileMode = TileMode.Mirror
-                )),
+                )
+            ),
             modifier = Modifier.padding(4.dp)
 //                .background(
 //                brush = Brush.horizontalGradient(listOf(

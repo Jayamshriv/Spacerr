@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.antrikshgyan.domain.model.nasa.mars.PhotoModel
 import com.example.antrikshgyan.presentation.nasa.components.APODScreen
 import com.example.antrikshgyan.presentation.home_screen.components.HomeScreen
+import com.example.antrikshgyan.presentation.insight3d.Insight3DScreen
 import com.example.antrikshgyan.presentation.isro_zone.components.ISROScreen
 import com.example.antrikshgyan.presentation.iss.components.ISSLocationScreen
 import com.example.antrikshgyan.presentation.mars.components.MarsRoverDetailsScreen
@@ -70,6 +71,12 @@ fun NavGraph() {
             route = Routes.ISSLocationScreen.routes
         ){
             ISSLocationScreen()
+        }
+        
+        composable(
+            route = Routes.Insight3DScreen.routes
+        ){
+            Insight3DScreen()
         }
     }
 }
