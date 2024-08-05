@@ -111,6 +111,8 @@ dependencies {
     //firebase
     implementation(platform(libs.google.firebase.bom))
     implementation(libs.firebase.analytics)
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-firestore")
 
     //google maps
     implementation(libs.maps.compose)

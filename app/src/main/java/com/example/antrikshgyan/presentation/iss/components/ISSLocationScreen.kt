@@ -79,7 +79,7 @@ fun ISSLocationScreen() {
 
     LaunchedEffect(Unit) {
         while (true) {
-            delay(10000)
+            delay(2500)
             issViewModel.getISSPosition("kilometers")
             issViewModel.getISSPositionDetail(
                 issViewModel.issPos.issPosition.latitude!!,

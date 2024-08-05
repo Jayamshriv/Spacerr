@@ -60,7 +60,7 @@ import com.example.antrikshgyan.ui.theme.fonts
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun APODScreen(
-    heading: String,
+    heading: String = "Astronomy POD",
     navController: NavController
 ) {
     val apodViewModel: APODViewModel = hiltViewModel()

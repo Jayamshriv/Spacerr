@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
@@ -51,8 +52,9 @@ fun ISROZoneHomeScreen(
 //        )
 
         LazyVerticalGrid(
-            columns = GridCells.Adaptive(128.dp),
-            modifier = Modifier.heightIn(max = 500.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            columns = GridCells.Adaptive(minSize = 128.dp),
+            modifier = Modifier.heightIn(max = 500.dp).widthIn(max = 500.dp)
 //                .horizontalScroll(rememberScrollState())
 //                .fillMaxWidth()
         ) {
