@@ -65,9 +65,9 @@ fun ExploreHomeScreen(
             CardHomeScreen(heading = "Insight 3D", image = Constants.INSIGHT_3D_URL, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
                 navController.navigate(Routes.Insight3DScreen.routes)
             }
-            CardHomeScreen(heading = "Sonifications", image = Constants.SPACECRAFT_URL, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
-
-            }
+//            CardHomeScreen(heading = "Sonifications", image = Constants.SPACECRAFT_URL, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
+//
+//            }
 
         }
 

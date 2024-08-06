@@ -197,7 +197,8 @@ fun APODScreen(
 
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.Top
+                        verticalAlignment = Alignment.Top,
+                        modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
                             text = "Behind The Picture :",

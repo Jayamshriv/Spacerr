@@ -73,31 +73,33 @@ class FCMNotificationService : FirebaseMessagingService() {
         val pendingIntent: PendingIntent = PendingIntent.getActivity(
             this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-
+        var imageUrl=""
         val title = data?.title ?: "Title"
         val body = data?.body ?: "Body"
-        val imageUrl = data?.imageUrl ?: "Image"
+        val image = data?.imageUrl ?: "Image"
+        if (image.equals("image")){
+            imageUrl = image.toString()
+        }
 
         Log.d("TAG","title : $title body : $body image $imageUrl ")
         val channelId = "default_channel_id"
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
-        val bigPictureStyle = BigPictureStyle().bigPicture(
-            (ResourcesCompat.getDrawable(resources,R.drawable.aspacecraft, null) as BitmapDrawable).bitmap
-        )
+        val bigPictureStyle = BigPictureStyle()
+            .bigPicture(getBitmapFromUrl(imageUrl)
+        ).bigLargeIcon(getBitmapFromUrl(imageUrl))
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.spacerr__app)
             .setContentTitle(title)
-            .setColor(Blue.toArgb())
-            .setContentText(body)
+            .setContentText(body.subSequence(0,60))
             .setAutoCancel(true)
+            .setStyle(bigPictureStyle)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        // Since Android Oreo, a notification channel is needed.
         val channel = NotificationChannel(channelId, "apod_channel", NotificationManager.IMPORTANCE_HIGH)
         notificationManager.createNotificationChannel(channel)
 
