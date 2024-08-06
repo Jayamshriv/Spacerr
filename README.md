@@ -31,10 +31,5 @@ Spacerr is an Android application developed using Kotlin and Jetpack Compose, ai
 ## Architecture
 The project follows the Clean Architecture pattern with MVVM (Model-View-ViewModel) to ensure a scalable, maintainable, and testable codebase.
 
-## Check out YT video
-<!-- Add screenshots of your app here -->
-![Screenshot 1](path_to_screenshot1)
-![Screenshot 2](path_to_screenshot2)
-
 ## Download Link
 ![Download Spacerr]()
