@@ -46,12 +46,12 @@ fun SpaceXHomeScreen(
                 .horizontalScroll(rememberScrollState())
                 .fillMaxWidth()
         ) {
-            CardHomeScreen(heading = "Spacecraft", image = R.drawable.spacecraft_){
-
-            }
-            CardHomeScreen(heading = "Launches", image = R.drawable.launchpad){}
-            CardHomeScreen(heading = "Satellites", image = R.drawable.spacecraft_){}
-            CardHomeScreen(heading = "Centres", image = R.drawable.spacecraft_){}
+//            CardHomeScreen(heading = "Spacecraft", image = R.drawable.spacecraft_){
+//
+//            }
+//            CardHomeScreen(heading = "Launches", image = R.drawable.launchpad){}
+//            CardHomeScreen(heading = "Satellites", image = R.drawable.spacecraft_){}
+//            CardHomeScreen(heading = "Centres", image = R.drawable.spacecraft_){}
         }
 
     }

@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.antrikshgyan.R
+import com.example.antrikshgyan.common.Constants
 import com.example.antrikshgyan.presentation.navgraph.Routes
 import com.example.antrikshgyan.ui.theme.fonts
 
@@ -63,7 +64,7 @@ fun ISROZoneHomeScreen(
             ) { index, item ->
                 when (item) {
                     1-> {
-                        CardHomeScreen(heading = "Spacecraft", image = R.drawable.spacecraft_) {
+                        CardHomeScreen(heading = "Spacecraft", image = Constants.SPACECRAFT_URL) {
                             Log.e("ARGUMENT", "Spacecraft")
                             bundle.putInt("index", 1)
                             bundle.putString("heading", "Spacecraft")
@@ -76,9 +77,9 @@ fun ISROZoneHomeScreen(
                     }
 
                     2 -> {
-                        CardHomeScreen(heading = "Launches", image = R.drawable.launchpad) {
-                            bundle.putInt("index", 2)
-                            bundle.putString("heading", "Launches")
+                        CardHomeScreen(heading = "Centres", image = Constants.CENTRE_URL) {
+                            bundle.putInt("index", 4)
+                            bundle.putString("heading", "Centres")
                             navController.currentBackStackEntry?.savedStateHandle?.set(
                                 "argument",
                                 bundle
@@ -88,7 +89,7 @@ fun ISROZoneHomeScreen(
                     }
 
                     3 -> {
-                        CardHomeScreen(heading = "Satellites", image = R.drawable.spacecraft_) {
+                        CardHomeScreen(heading = "Satellites", image = Constants.SATELLITE_URL) {
                             bundle.putInt("index", 3)
                             bundle.putString("heading", "Satellites")
                             navController.currentBackStackEntry?.savedStateHandle?.set(
@@ -100,14 +101,14 @@ fun ISROZoneHomeScreen(
                     }
 
                     4 -> {
-                        CardHomeScreen(heading = "Centres", image = R.drawable.spacecraft_) {
-                            bundle.putInt("index", 4)
-                            bundle.putString("heading", "Centres")
-                            navController.currentBackStackEntry?.savedStateHandle?.set(
-                                "argument",
-                                bundle
-                            )
-                            navController.navigate(Routes.ISROScreen.routes)
+                        CardHomeScreen(heading = "Launches", image = Constants.LAUNCHES_URL) {
+                        bundle.putInt("index", 2)
+                        bundle.putString("heading", "Launches")
+                        navController.currentBackStackEntry?.savedStateHandle?.set(
+                            "argument",
+                            bundle
+                        )
+                        navController.navigate(Routes.ISROScreen.routes)
                         }
                     }
                 }

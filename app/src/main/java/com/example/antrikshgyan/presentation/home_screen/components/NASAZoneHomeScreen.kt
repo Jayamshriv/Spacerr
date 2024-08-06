@@ -46,15 +46,15 @@ fun NASAZoneHomeScreen(
                 .horizontalScroll(rememberScrollState())
                 .fillMaxWidth()
         ) {
-            CardHomeScreen(heading = "IVL", image = R.drawable.spacecraft_){
-
-            }
-            CardHomeScreen(heading = "Mars Lust", image = R.drawable.launchpad){
-
-            }
-            CardHomeScreen(heading = "EPIC", image = R.drawable.spacecraft_){
-
-            }
+//            CardHomeScreen(heading = "IVL", image = R.drawable.spacecraft_){
+//
+//            }
+//            CardHomeScreen(heading = "Mars Lust", image = R.drawable.launchpad){
+//
+//            }
+//            CardHomeScreen(heading = "EPIC", image = R.drawable.spacecraft_){
+//
+//            }
         }
 
     }

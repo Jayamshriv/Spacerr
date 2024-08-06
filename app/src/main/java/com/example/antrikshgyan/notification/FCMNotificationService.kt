@@ -7,11 +7,13 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.media.RingtoneManager
 import android.util.Log
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationCompat.BigPictureStyle
+import androidx.core.content.res.ResourcesCompat
 import com.example.antrikshgyan.MainActivity
 import com.example.antrikshgyan.R
 import com.example.antrikshgyan.ui.theme.Blue
@@ -44,8 +46,9 @@ class FCMNotificationService : FirebaseMessagingService() {
         // Check if message contains a notification payload.
         remoteMessage.notification?.let {
             Log.d("TAG", "Message Notification Body: ${it.body}")
+            Log.d("TAG", "Message Notification imageurl: ${it.imageUrl}")
             it.body?.let {
-                body -> sendNotification(body, remoteMessage.notification)
+                body -> sendNotification(body, remoteMessage.notification, remoteMessage.data)
             }
         }
     }
@@ -58,7 +61,11 @@ class FCMNotificationService : FirebaseMessagingService() {
         // Handle the extracted data
     }
 
-    private fun sendNotification(messageBody: String, data: RemoteMessage.Notification?) {
+    private fun sendNotification(
+        messageBody: String,
+        data: RemoteMessage.Notification?,
+        dataImage: MutableMap<String, String>
+    ) {
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             putExtra("navigateTo", "APODScreen")
@@ -69,16 +76,21 @@ class FCMNotificationService : FirebaseMessagingService() {
 
         val title = data?.title ?: "Title"
         val body = data?.body ?: "Body"
+        val imageUrl = data?.imageUrl ?: "Image"
 
-        Log.d("TAG","title : $title body : $body")
+        Log.d("TAG","title : $title body : $body image $imageUrl ")
         val channelId = "default_channel_id"
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+
+        val bigPictureStyle = BigPictureStyle().bigPicture(
+            (ResourcesCompat.getDrawable(resources,R.drawable.aspacecraft, null) as BitmapDrawable).bitmap
+        )
+
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.spacerr__app)
             .setContentTitle(title)
             .setColor(Blue.toArgb())
             .setContentText(body)
-
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
@@ -91,6 +103,7 @@ class FCMNotificationService : FirebaseMessagingService() {
 
         notificationManager.notify(0, notificationBuilder.build())
     }
+
     private fun getBitmapFromUrl(imageUrl: String): Bitmap? {
         return try {
             val url = URL(imageUrl)

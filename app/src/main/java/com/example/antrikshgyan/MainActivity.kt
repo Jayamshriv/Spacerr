@@ -68,6 +68,14 @@ class MainActivity : ComponentActivity() {
                 Log.e("TAG", "Subscribed to " + done.result.toString())
 
             }
+        FirebaseMessaging.getInstance().subscribeToTopic("apod")
+            .addOnCompleteListener { done ->
+                if (!done.isSuccessful) {
+                    Log.e("TAG", "Error Subscribing " + done.exception.toString())
+                }
+                Log.e("TAG", "Subscribed to " + done.result.toString())
+
+            }
 //        WindowCompat.setDecorFitsSystemWindows(window, false)
         enableEdgeToEdge(
             navigationBarStyle = SystemBarStyle.light(
@@ -102,7 +110,7 @@ class MainActivity : ComponentActivity() {
             val token = task.result
 
             Log.d("TAG", token)
-            Toast.makeText(baseContext, "Token : $token", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(baseContext, "Token : $token", Toast.LENGTH_SHORT).show()
         })
     }
 

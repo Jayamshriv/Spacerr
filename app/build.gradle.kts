@@ -8,7 +8,7 @@ plugins {
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -113,6 +113,8 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation("com.google.firebase:firebase-messaging")
     implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-analytics")
 
     //google maps
     implementation(libs.maps.compose)

@@ -8,8 +8,10 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,8 +20,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.FloatingActionButtonElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -47,8 +53,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
+import coil.compose.SubcomposeAsyncImage
 import coil.compose.rememberAsyncImagePainter
 import com.example.antrikshgyan.R
+import com.example.antrikshgyan.presentation.common.CenteredCircularProgress
 import com.example.antrikshgyan.presentation.common.FullScreenImage
 import com.example.antrikshgyan.presentation.common.TopAppCustomBar
 import com.example.antrikshgyan.presentation.nasa.viewmodel.APODViewModel
@@ -56,6 +64,8 @@ import com.example.antrikshgyan.presentation.navgraph.Routes
 import com.example.antrikshgyan.ui.theme.Blue
 import com.example.antrikshgyan.ui.theme.Purple
 import com.example.antrikshgyan.ui.theme.fonts
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -145,54 +155,87 @@ fun APODScreen(
                         } else {
                             url = apod.url.toString()
                         }
-                        if(showImageDialog) {
-                            FullScreenImage(url = apodState.apod.hdurl ?: apodState.apod.url){
+                        if (showImageDialog) {
+                            FullScreenImage(url = apodState.apod.hdurl ?: apodState.apod.url) {
                                 showImageDialog = false
                             }
                         }
-                            Image(
-                                painter = rememberAsyncImagePainter(model = url),
-                                contentDescription = "image",
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(heightOfCard)
-                                    .padding(vertical = 8.dp)
-                                    .background(
-                                        shape = RoundedCornerShape(12.dp),
-                                        color = Color.Transparent
-                                    )
-                                    .border(
-                                        BorderStroke(
-                                            0.4.dp, color = Color.White
-                                        ),
-                                        shape = RoundedCornerShape(12.dp)
-                                    )
-                                    .shadow(
-                                        elevation = 16.dp,
-                                        ambientColor = Purple,
-                                        spotColor = Purple,
-                                        shape = RoundedCornerShape(12.dp)
-                                    )
-                                    .clickable {
-                                        showImageDialog = true
-                                    }
-                            )
+                        SubcomposeAsyncImage(
+                            model = url,
+                            loading = {
+                                CenteredCircularProgress()
+                            },
+                            contentDescription = "image",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(heightOfCard)
+                                .padding(vertical = 8.dp)
+                                .background(
+                                    shape = RoundedCornerShape(12.dp),
+                                    color = Color.Transparent
+                                )
+                                .border(
+                                    BorderStroke(
+                                        0.4.dp, color = Color.White
+                                    ),
+                                    shape = RoundedCornerShape(12.dp)
+                                )
+                                .shadow(
+                                    elevation = 16.dp,
+                                    ambientColor = Purple,
+                                    spotColor = Purple,
+                                    shape = RoundedCornerShape(12.dp)
+                                )
+                                .clickable {
+                                    showImageDialog = true
+                                }
+                        )
 
 
                     }
 
-                    Text(
-                        text = "Behind The Picture :",
-                        modifier = Modifier.padding(vertical = 8.dp),
-                        fontFamily = fonts,
-                        color = Color.White,
-                        fontSize = 17.sp,
-                        textAlign = TextAlign.Justify,
-                        lineHeight = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.headlineSmall
-                    )
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.Top
+                    ) {
+                        Text(
+                            text = "Behind The Picture :",
+                            modifier = Modifier.padding(vertical = 8.dp),
+                            fontFamily = fonts,
+                            color = Color.White,
+                            fontSize = 17.sp,
+                            textAlign = TextAlign.Justify,
+                            lineHeight = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            style = MaterialTheme.typography.headlineSmall
+                        )
+                        ExtendedFloatingActionButton(
+                            containerColor = Color.Transparent,
+                            contentColor = Color.Transparent,
+                            elevation = FloatingActionButtonDefaults.elevation(0.dp,0.dp,0.dp,0.dp),
+                            onClick = {
+                                val data = hashMapOf(
+                                    "title" to apod.title,
+                                    "body" to apod.explanation,
+                                    "imageUrl" to apod.url
+                                )
+                                Firebase.firestore.collection("notifications")
+                                    .document()
+                                    .set(data)
+                                    .addOnCompleteListener {task->
+                                        if(!task.isSuccessful){
+                                            Log.e(TAG, "error : ${task.exception}")
+                                        }else{
+                                            Log.w(TAG,"data added : $data")
+                                        }
+                                    }
+                            },
+                            modifier = Modifier.background(color = Color.Transparent).size(12.dp)
+                        ) {
+
+                        }
+                    }
 
                     Text(
                         text = apod.explanation!!,

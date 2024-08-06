@@ -1,5 +1,6 @@
 package com.example.antrikshgyan.presentation.home_screen.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,13 +28,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.SubcomposeAsyncImage
+import com.example.antrikshgyan.presentation.common.CenteredCircularProgress
 import com.example.antrikshgyan.ui.theme.DarkBlue
 import com.example.antrikshgyan.ui.theme.fonts
 
 @Composable
 fun CardHomeScreen(
     heading: String,
-    image: Int,
+    image: String,
     modifier: Modifier = Modifier,
     cornerSize : Dp = 8.dp,
     onClick : () -> Unit
@@ -73,15 +76,18 @@ fun CardHomeScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .align(Alignment.CenterHorizontally)
-                    .background(color = Color.White)
+                    .background(color = Color.Transparent)
                     .clip(shape = RoundedCornerShape(cornerSize))
             ) {
 
-                Image(
-                    painter = painterResource(id = image),
-                    contentDescription = "spacecraft",
+                SubcomposeAsyncImage(
+                    model = image,
+                    loading = {
+                        CenteredCircularProgress()
+                    },
+                    contentDescription = image.toString(),
                     alignment = Alignment.Center,
-                    contentScale = ContentScale.Fit,
+                    contentScale = ContentScale.FillBounds,
                     modifier = Modifier
                         .size(150.dp)
                         .background(Color.Transparent)

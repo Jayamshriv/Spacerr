@@ -24,7 +24,7 @@ exports.sendPushNotifications = functions.firestore.document("notifications/{doc
       notification: {
         title: title,
         body: body,
-      }
+      },
     //   ,
     //   topic: "new_user",
     };
@@ -41,6 +41,55 @@ exports.sendPushNotifications = functions.firestore.document("notifications/{doc
   }
 );
 
+exports.sendNewApodNotification = functions.firestore.document("apod/{docID}").onCreate(
+  (snapshot,context)=>{
+    logger.info("New notification document created", { structuredData: true });
+
+    const notificationData = snapshot.data();
+    const title = typeof notificationData.title === 'string' ? notificationData.title : 'Default Title';
+    const body = typeof notificationData.body === 'string' ? notificationData.body : 'Default Body';
+    const imageUrl = typeof notificationData.image === 'string' ? notificationData.image : '';
+
+    const message = {
+      notification: {
+        title: title,
+        body: body,
+        
+
+      },
+      android: {
+        notification: {
+          imageUrl: imageUrl
+        }
+      },
+      apns: {
+        payload: {
+          aps: {
+            'mutable-content': 1
+          }
+        },
+        fcm_options: {
+          image: imageUrl
+        }
+      },
+      webpush: {
+        headers: {
+          image: imageUrl
+        }
+      },
+      topic: 'apod',
+    };
+
+    admin.messaging().send(message)
+    .then((response) => {
+      logger.info("Successfully sent message:", response);
+    })
+    .catch((error) => {
+      logger.error("Error sending message:", error);
+    });
+  
+  }
+);
 
 // Create and deploy your first functions
 // https://firebase.google.com/docs/functions/get-started

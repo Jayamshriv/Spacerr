@@ -37,7 +37,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.compose.SubcomposeAsyncImage
 import coil.compose.rememberAsyncImagePainter
+import com.example.antrikshgyan.presentation.common.CenteredCircularProgress
 import com.example.antrikshgyan.presentation.nasa.components.YoutubePlayer
 import com.example.antrikshgyan.presentation.nasa.viewmodel.APODViewModel
 import com.example.antrikshgyan.presentation.navgraph.Routes
@@ -149,8 +151,11 @@ fun APODHomeScreen(
                         } else {
                             url = state.hdurl!!
                         }
-                        Image(
-                            painter = rememberAsyncImagePainter(model = url),
+                        SubcomposeAsyncImage(
+                            model = url,
+                            loading = {
+                                CenteredCircularProgress()
+                            },
                             contentDescription = "image",
                             contentScale = ContentScale.Crop, // Optional, adjust as needed
                             modifier = Modifier.fillMaxSize()

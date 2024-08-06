@@ -19,8 +19,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.antrikshgyan.R
+import com.example.antrikshgyan.common.Constants
 import com.example.antrikshgyan.presentation.navgraph.Routes
 import com.example.antrikshgyan.ui.theme.fonts
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 @Composable
 fun ExploreHomeScreen(
@@ -50,19 +53,19 @@ fun ExploreHomeScreen(
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            CardHomeScreen(heading = "Daily Shit", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
+            CardHomeScreen(heading = "Daily Shit", image = Constants.DAILY_SHIT_URL, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
                 navController.navigate(Routes.DailyFactsScreen.routes)
             }
-            CardHomeScreen(heading = "Locate ISS", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
+            CardHomeScreen(heading = "Locate ISS", image = Constants.ISS_LOCATION_URL, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
                 navController.navigate(Routes.ISSLocationScreen.routes)
             }
-            CardHomeScreen(heading = "MARS Rover Images", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
+            CardHomeScreen(heading = "MARS Rover Images", image = Constants.MARS_ROVER_IMAGES_URL, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
                 navController.navigate(Routes.MarsRoverScreen.routes)
             }
-            CardHomeScreen(heading = "Insight 3D", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
+            CardHomeScreen(heading = "Insight 3D", image = Constants.INSIGHT_3D_URL, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
                 navController.navigate(Routes.Insight3DScreen.routes)
             }
-            CardHomeScreen(heading = "Sonification", image = R.drawable.spacecraft_, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
+            CardHomeScreen(heading = "Sonifications", image = Constants.SPACECRAFT_URL, modifier = Modifier.size(140.dp), cornerSize = 20.dp){
 
             }
 
