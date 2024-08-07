@@ -13,7 +13,7 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 const db = admin.firestore();
 
-exports.sendPushNotifications = functions.firestore.document("notifications/{docID}").onCreate(
+exports.sendPushNotifications = functions.firestore.document("device_token/{docID}").onCreate(
   (snapshot, context) => {
     logger.info("New notification document created", { structuredData: true });
 
@@ -23,8 +23,8 @@ exports.sendPushNotifications = functions.firestore.document("notifications/{doc
 
     const message = {
       notification: {
-        title: title,
-        body: body,
+        title: "Hii Spacerr",
+        body:"Be Ready to die after watching the beauty of Space"
       },
     //   ,
     //   topic: "new_user",
@@ -94,7 +94,7 @@ exports.sendNewApodNotification = functions.firestore.document("apod/{docID}").o
   }
 );
 
-exports.fetchAndWriteDataOnFirestore = functions.pubsub.schedule('every 24 hours').onRun(
+exports.fetchAndWriteDataOnFirestore = functions.pubsub.schedule('0 0 * * *').onRun(
   async (context)=> {
     try {
       const response = await axios.get('https://api.nasa.gov/planetary/apod?api_key=noMFHR9VTfElRHpLoPVcHaJNZsFU9hvtiIQyDS8m');
@@ -124,7 +124,7 @@ exports.fetchAndWriteDataOnFirestore = functions.pubsub.schedule('every 24 hours
   }
 });
 
-exports.sendRandomFact = functions.pubsub.schedule('every 2 hours').onRun(
+exports.sendRandomFact = functions.pubsub.schedule('0 * * * *').onRun(
     async (context)=> {
       try {
         const response = await axios.get('https://api.nasa.gov/planetary/apod?count=1&api_key=noMFHR9VTfElRHpLoPVcHaJNZsFU9hvtiIQyDS8m');
