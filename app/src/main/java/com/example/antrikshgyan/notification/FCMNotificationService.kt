@@ -45,6 +45,7 @@ class FCMNotificationService : FirebaseMessagingService() {
         remoteMessage.notification?.let {
             Log.d("TAG", "Message Notification Body: ${it.body}")
             Log.d("TAG", "Message Notification imageurl: ${it.imageUrl}")
+            Log.d("TAG", "Message Notification media_type: ${it}")
             it.body?.let {
                 body -> sendNotification(body, remoteMessage.notification, remoteMessage.data)
             }
@@ -69,14 +70,17 @@ class FCMNotificationService : FirebaseMessagingService() {
             this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         var imageUrl=""
+        var body = ""
         val title = data?.title ?: "Title"
-        val body = data?.body ?: "Body"
+        val bodyR = data?.body ?: "Body"
         val image = data?.imageUrl ?: "Image"
-        if (image == "image"){
+        if (isImageFormat(image.toString())){
             imageUrl = image.toString()
+            body = bodyR
         }else{
-            val videoId = imageUrl?.substringAfter("embed/")?.substringBefore("?rel")
+            val videoId = imageUrl.substringAfter("embed/")?.substringBefore("?rel")
             imageUrl = "https://i.ytimg.com/vi/$videoId/mqdefault.jpg"
+            body = bodyR.subSequence(0,20).toString()
         }
 
         Log.d("TAG","title : $title body : $body image $imageUrl ")
@@ -88,6 +92,7 @@ class FCMNotificationService : FirebaseMessagingService() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 bigPictureStyle
                 .bigPicture(getBitmapFromUrl(imageUrl))
+                .bigLargeIcon(getBitmapFromDrawable(R.drawable.spacerr__app))
         } else {
             bigPictureStyle
                 .bigPicture(getBitmapFromUrl(imageUrl))
@@ -97,9 +102,9 @@ class FCMNotificationService : FirebaseMessagingService() {
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setContentTitle(title)
+            .setContentText(body)
             .setSmallIcon(R.drawable.ic_stat_spacerr)
             .setColor(app_color.toArgb())
-            .setContentText(body.subSequence(0,60))
             .setAutoCancel(false)
             .setLargeIcon(getBitmapFromDrawable(R.drawable.spacerr__app))
             .setStyle(bigPictureStyle)
@@ -117,8 +122,10 @@ class FCMNotificationService : FirebaseMessagingService() {
     private fun getBitmapFromUrl(imageUrl: String): Bitmap? {
         return try {
             val url = URL(imageUrl)
+            Log.e("TAG", url.toString())
             BitmapFactory.decodeStream(url.openConnection().getInputStream())
         } catch (e: Exception) {
+            Log.e("TAG", e.message.toString())
             null
         }
     }
@@ -127,5 +134,9 @@ class FCMNotificationService : FirebaseMessagingService() {
         @DrawableRes image : Int
     ): Bitmap {
         return BitmapFactory.decodeResource(resources, image)
+    }
+
+    private fun isImageFormat(imageUrl : String): Boolean {
+        return imageUrl.startsWith("https://apod.nasa.gov/apod/image", ignoreCase = false)
     }
 }
