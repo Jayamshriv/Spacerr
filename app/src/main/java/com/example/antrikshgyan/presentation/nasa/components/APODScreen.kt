@@ -151,12 +151,12 @@ fun APODScreen(
                         )
                     } else {
                         if (apod.hdurl != null) {
-                            url = apod.hdurl!!
+                            url = apod.url!!
                         } else {
                             url = apod.url.toString()
                         }
                         if (showImageDialog) {
-                            FullScreenImage(url = apodState.apod.hdurl ?: apodState.apod.url) {
+                            FullScreenImage(url = apodState.apod.url ?: apodState.apod.hdurl) {
                                 showImageDialog = false
                             }
                         }

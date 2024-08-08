@@ -11,10 +11,13 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.annotation.DrawableRes
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.BigPictureStyle
 import com.example.antrikshgyan.MainActivity
 import com.example.antrikshgyan.R
+import com.example.antrikshgyan.ui.theme.app_color
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -39,7 +42,6 @@ class FCMNotificationService : FirebaseMessagingService() {
             Log.d("TAG", "Message data payload: ${remoteMessage.data}")
         }
 
-        // Check if message contains a notification payload.
         remoteMessage.notification?.let {
             Log.d("TAG", "Message Notification Body: ${it.body}")
             Log.d("TAG", "Message Notification imageurl: ${it.imageUrl}")
@@ -50,11 +52,8 @@ class FCMNotificationService : FirebaseMessagingService() {
     }
 
     private fun handleNow(data: Map<String, String>) {
-        // Handle the data message here.
-        // For example, extract data and take appropriate action.
         val key1 = data["title"]
         val key2 = data["body"]
-        // Handle the extracted data
     }
 
     private fun sendNotification(
@@ -84,20 +83,24 @@ class FCMNotificationService : FirebaseMessagingService() {
         val channelId = "default_channel_id"
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
-        val bigPictureStyle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            BigPictureStyle()
+
+        val bigPictureStyle = BigPictureStyle()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                bigPictureStyle
                 .bigPicture(getBitmapFromUrl(imageUrl))
-                .bigLargeIcon(getBitmapFromUrl(imageUrl))
-                .showBigPictureWhenCollapsed(true)
         } else {
-            TODO("VERSION.SDK_INT < S")
+            bigPictureStyle
+                .bigPicture(getBitmapFromUrl(imageUrl))
+                .bigLargeIcon(getBitmapFromDrawable(R.drawable.spacerr__app))
         }
 
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setContentTitle(title)
+            .setSmallIcon(R.drawable.ic_stat_spacerr)
+            .setColor(app_color.toArgb())
             .setContentText(body.subSequence(0,60))
-            .setAutoCancel(true)
+            .setAutoCancel(false)
             .setLargeIcon(getBitmapFromDrawable(R.drawable.spacerr__app))
             .setStyle(bigPictureStyle)
             .setSound(defaultSoundUri)

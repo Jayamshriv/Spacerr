@@ -17,17 +17,19 @@ exports.sendPushNotifications = functions.firestore.document("device_token/{docI
   (snapshot, context) => {
     logger.info("New notification document created", { structuredData: true });
 
+    const docID = context.params.docID;
+    const deviceToken = snapshot.data().token;
+
     const notificationData = snapshot.data();
-    const title = typeof notificationData.title === 'string' ? notificationData.title : 'Default Title';
-    const body = typeof notificationData.body === 'string' ? notificationData.body : 'Default Body';
+    // const title = typeof notificationData.title === 'string' ? notificationData.title : 'Default Title';
+    // const body = typeof notificationData.body === 'string' ? notificationData.body : 'Default Body';
 
     const message = {
       notification: {
         title: "Hii Spacerr",
         body:"Be Ready to die after watching the beauty of Space"
       },
-    //   ,
-    //   topic: "new_user",
+      token: deviceToken,
     };
 
     admin.messaging().sendToTopic("new_user",message)
