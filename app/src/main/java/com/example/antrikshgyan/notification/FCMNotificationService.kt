@@ -7,16 +7,14 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.media.RingtoneManager
+import android.os.Build
 import android.util.Log
-import androidx.compose.ui.graphics.toArgb
+import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.BigPictureStyle
-import androidx.core.content.res.ResourcesCompat
 import com.example.antrikshgyan.MainActivity
 import com.example.antrikshgyan.R
-import com.example.antrikshgyan.ui.theme.Blue
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -37,10 +35,8 @@ class FCMNotificationService : FirebaseMessagingService() {
         super.onMessageReceived(remoteMessage)
         Log.d("TAG", "From: ${remoteMessage.notification}")
 
-        // Check if message contains a data payload.
         if (remoteMessage.data.isNotEmpty()) {
             Log.d("TAG", "Message data payload: ${remoteMessage.data}")
-//            handleNow(remoteMessage.data)
         }
 
         // Check if message contains a notification payload.
@@ -77,23 +73,32 @@ class FCMNotificationService : FirebaseMessagingService() {
         val title = data?.title ?: "Title"
         val body = data?.body ?: "Body"
         val image = data?.imageUrl ?: "Image"
-        if (image.equals("image")){
+        if (image == "image"){
             imageUrl = image.toString()
+        }else{
+            val videoId = imageUrl?.substringAfter("embed/")?.substringBefore("?rel")
+            imageUrl = "https://i.ytimg.com/vi/$videoId/mqdefault.jpg"
         }
 
         Log.d("TAG","title : $title body : $body image $imageUrl ")
         val channelId = "default_channel_id"
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
-        val bigPictureStyle = BigPictureStyle()
-            .bigPicture(getBitmapFromUrl(imageUrl)
-        ).bigLargeIcon(getBitmapFromUrl(imageUrl))
+        val bigPictureStyle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            BigPictureStyle()
+                .bigPicture(getBitmapFromUrl(imageUrl))
+                .bigLargeIcon(getBitmapFromUrl(imageUrl))
+                .showBigPictureWhenCollapsed(true)
+        } else {
+            TODO("VERSION.SDK_INT < S")
+        }
+
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.spacerr__app)
             .setContentTitle(title)
             .setContentText(body.subSequence(0,60))
             .setAutoCancel(true)
+            .setLargeIcon(getBitmapFromDrawable(R.drawable.spacerr__app))
             .setStyle(bigPictureStyle)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
@@ -113,5 +118,11 @@ class FCMNotificationService : FirebaseMessagingService() {
         } catch (e: Exception) {
             null
         }
+    }
+
+    private fun getBitmapFromDrawable(
+        @DrawableRes image : Int
+    ): Bitmap {
+        return BitmapFactory.decodeResource(resources, image)
     }
 }

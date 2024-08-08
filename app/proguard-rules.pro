@@ -1,49 +1,40 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+-keep class org.joda.time.** { *; }
+-keep class org.joda.** { *; }
+-dontwarn org.joda.convert.**
+ # R8 full mode strips generic signatures from return types if not kept.
+ -if interface * { @retrofit2.http.* public *** *(...); }
+ -keep,allowoptimization,allowshrinking,allowobfuscation class <3>
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+ # With R8 full mode generic signatures are stripped for classes that are not kept.
+ -keep,allowobfuscation,allowshrinking class retrofit2.Response
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+-dontwarn com.oracle.svm.core.annotate.**
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
-# Keep BouncyCastle classes
--keep class org.bouncycastle.** { *; }
--dontwarn org.bouncycastle.**
 
-# Keep Conscrypt classes
--keep class org.conscrypt.** { *; }
--dontwarn org.conscrypt.**
+ -keep class retrofit.** { *; }
+ -keepclassmembers class * {
+     @retrofit2.http.* <methods>;
+ }
 
-# Keep OpenJSSE classes
--keep class org.openjsse.** { *; }
--dontwarn org.openjsse.**
-
-# OkHttp specific rules
--keep class okhttp3.internal.platform.** { *; }
--dontwarn okhttp3.internal.platform.**
-
-# Suppress warnings for missing classes
+-keep class okhttp3.** { *; }
+-keep class com.google.gson.** { *; }
+-keep class com.example.app.json.** { *; }
+-keep @androidx.annotation.Keep public class *
 -dontwarn org.bouncycastle.jsse.BCSSLParameters
 -dontwarn org.bouncycastle.jsse.BCSSLSocket
 -dontwarn org.bouncycastle.jsse.provider.BouncyCastleJsseProvider
 -dontwarn org.conscrypt.Conscrypt$Version
 -dontwarn org.conscrypt.Conscrypt
+-dontwarn org.conscrypt.ConscryptHostnameVerifier
 -dontwarn org.openjsse.javax.net.ssl.SSLParameters
 -dontwarn org.openjsse.javax.net.ssl.SSLSocket
 -dontwarn org.openjsse.net.ssl.OpenJSSE
-
-# General ProGuard rules
-# Add any other general ProGuard rules your project requires here
+-keepattributes Signature #
+-dontwarn kotlin.reflect.jvm.internal.**
+-keep class kotlin.reflect.jvm.internal.** { *; }
+-keepnames class com.example.antrikshgyan.**
+-keep class com.example.antrikshgyan.** { *; }
+-keep,allowobfuscation,allowshrinking class retrofit2.Response
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+-keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
