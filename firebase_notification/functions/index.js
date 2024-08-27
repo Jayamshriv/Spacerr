@@ -25,7 +25,7 @@ exports.sendPushNotifications = functions.firestore.document("device_token/{docI
     // const body = typeof notificationData.body === 'string' ? notificationData.body : 'Default Body';
 
     const message = {
-      notification: {
+      data: {
         title: "Hii Spacerr",
         body:"Be Ready to die after watching the beauty of Space"
       },
@@ -55,12 +55,16 @@ exports.sendNewApodNotification = functions.firestore.document("apod/{docID}").o
     const timestamp = typeof notificationData.timestamp === 'string' ? notificationData.timestamp : '';
 
     const message = {
-      notification: {
+      data: {
         title: title,
         body: body,
+        imageUrl : imageUrl,
+        timestamp: timestamp.toString()
       },
       android: {
         notification: {
+          title: title,
+          body: body,
           imageUrl: imageUrl
         }
       },
@@ -80,9 +84,6 @@ exports.sendNewApodNotification = functions.firestore.document("apod/{docID}").o
         }
       },
       topic: 'apod',
-      data: { 
-        timestamp: timestamp.toString()
-      }
     };
     logger.info("Message :", message);
     admin.messaging().send(message)

@@ -1,6 +1,7 @@
 package com.example.antrikshgyan.presentation.isro_zone.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,10 +21,10 @@ class ISROServiceViewModel @Inject constructor(
     private val TAG = "ISROServiceViewModel"
 
     private val _spacecraftState = mutableStateOf(ISROSpacecraftDataState())
-    val spacecraftResponse = _spacecraftState
+    val spacecraftResponse  : State<ISROSpacecraftDataState> = _spacecraftState
     
     private val _launchState = mutableStateOf(ISROLaunchDataState())
-    val launchState = _launchState
+    val launchState : State<ISROLaunchDataState> = _launchState
 
     init {
         getSpacecraft()

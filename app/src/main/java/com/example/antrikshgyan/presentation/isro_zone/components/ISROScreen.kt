@@ -74,7 +74,7 @@ fun ISROScreen(
                     heading = heading,
                     scrollBehavior = scrollBehaviour
                 ) {
-                    navController.popBackStack()
+                    navController.navigateUp()
                     navController.navigate(Routes.HomeScreen.routes)
                 }
             }
@@ -82,7 +82,7 @@ fun ISROScreen(
             Log.e("innerPadding", innerPadding.toString())
 
             LaunchedEffect(key1 = true) {
-                delay(2500)
+                delay(3000)
                 revealContent = true
             }
             if (revealContent) {

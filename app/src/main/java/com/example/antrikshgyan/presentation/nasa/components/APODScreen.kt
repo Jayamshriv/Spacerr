@@ -108,6 +108,7 @@ fun APODScreen(
                     heading = heading,
                     scrollBehavior = scrollBehavior
                 ) {
+                    navController.clearBackStack(Routes.ISROScreen.routes)
                     navController.navigate(Routes.HomeScreen.routes)
                 }
             }
@@ -267,5 +268,3 @@ fun APODScreen(
         }
     }
 }
-
-//}
