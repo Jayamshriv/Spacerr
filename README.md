@@ -4,6 +4,7 @@
 
 ## Description
 Spacerr is an Android application developed using Kotlin and Jetpack Compose, aimed at providing users with up-to-date information about space exploration. The app leverages various modern Android development practices and libraries to ensure a smooth and responsive user experience.
+![Screenshot_20240914_171012](https://github.com/user-attachments/assets/eb35a315-69e5-4f14-a6ea-66e41d69c127)
 
 ## Features
 - **Daily Space Facts**: Receive a new fact about space exploration every day.
