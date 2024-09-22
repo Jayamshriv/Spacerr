@@ -3,8 +3,7 @@
 ![Spacerr Logo](https://firebasestorage.googleapis.com/v0/b/spacerr-20d38.appspot.com/o/spacerr__app%20-%20Copy.png?alt=media&token=7e660efa-0a6e-462a-87e6-6f337807b74d) <!-- Optional: Add a logo for your project -->
 
 ## Description
-Spacerr is an Android application developed using Kotlin and Jetpack Compose, aimed at providing users with up-to-date information about space exploration. The app leverages various modern Android development practices and libraries to ensure a smooth and responsive user experience.
-![Screenshot_20240914_171012](https://github.com/user-attachments/assets/eb35a315-69e5-4f14-a6ea-66e41d69c127)
+Spacerr is an Android application developed using Kotlin and Jetpack Compose, aimed at providing users with up-to-date information about space exploration. The app leverages various modern Android development practices and libraries to ensure a smooth and responsive user experience.  
 
 ## Features
 - **Daily Space Facts**: Receive a new fact about space exploration every day.
@@ -28,6 +27,10 @@ Spacerr is an Android application developed using Kotlin and Jetpack Compose, ai
 - **Clean Architecture**
 - **MVVM Architecture**
 - **Firebase Firestore**
+
+## Screenshots
+![Untitled design](https://github.com/user-attachments/assets/b989a7f8-49b5-412e-b42c-499b2024cbf1)
+
 
 ## Architecture
 The project follows the Clean Architecture pattern with MVVM (Model-View-ViewModel) to ensure a scalable, maintainable, and testable codebase.
